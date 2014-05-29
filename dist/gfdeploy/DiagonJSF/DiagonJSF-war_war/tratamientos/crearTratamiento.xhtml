@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Crear un tratamiento</title>
+        <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />    
+    </h:head>
+    <h:body>        
+        <f:view>
+            <h:form class="container">
+                <h2><h:outputText value="Crear un nuevo tratamiento:"/></h2><br/>
+                <h:panelGrid columns="2" width="500px">
+
+                    <h:outputLabel value="Médico:" for="medico" />
+                    <h:inputText id="medico" value="#{tratamientoBean.idmedico}" class="form-control" title="Medico" required="true" requiredMessage="El campo Médico es obligatorio."/>
+                    
+                    <h:outputLabel value=""/><h:outputLabel value=""/>
+                    
+                    <h:outputLabel value="Fecha de inicio:" for="finicio" />
+                    <h:inputText class="form-control"  id="finicio" value="#{tratamientoBean.fecha}" title="Finicio" required="true" requiredMessage="El campo fecha de incicio es obligatorio."/>
+                    
+                    <h:outputLabel value=""/><h:outputLabel value=""/>
+                    
+                    <h:outputLabel value="Duracion:" for="dduracion" />
+                    <h:inputText id="dduracion" class="form-control"  value="#{tratamientoBean.duracion}" title="Dduracion" required="true" requiredMessage="El campo duración es obligatorio."/>
+                    
+                    <h:outputLabel value=""/><h:outputLabel value=""/>
+                    
+                    <h:outputLabel value="Descripcion:" for="descripcion" />                    
+                    <h:inputTextarea rows="3" class="form-control"  cols="30" id="descripcion" value="#{tratamientoBean.descripcion}" title="Descripcion" required="true" requiredMessage="El campo descripción es obligatorio."/>
+                    
+                    <h:outputLabel value=""/><h:outputLabel value=""/>
+
+                    <h:commandButton value="Crear " class="btn btn-success" action="#{tratamientoBean.crearTratamiento()}"/>
+                    <a href="../index.jsf"  class="btn btn-danger" > <span class="glyphicon glyphicon-remove"></span> Cancelar</a>
+                </h:panelGrid>                
+            </h:form>
+        </f:view>
+    </h:body>
+</html>
+

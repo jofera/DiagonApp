@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Aplicación Diagón</title>
+        <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />    
+    </h:head>
+    <h:body class="container">
+        <h:form>
+            <h1><h:outputText value="Bienvenido a la aplicación Diagón: "/></h1><br/>
+            <h:panelGrid columns="2" style="width: 600px">
+                <h:column> 
+                    <div class="panel panel-info" style="margin: 5px">
+                  <div class="panel-heading">
+                      <h3 class="panel-title"><span class="glyphicon glyphicon-list-alt"></span> Tratamientos:</h3>
+                  </div>
+                  <div class="panel-body">
+                     <a href="tratamientos/crearTratamiento.jsf">Crear un tratamiento</a><br/>
+                     <a href="tratamientos/listarTratamientos.jsf">Listar Tratamientos</a>
+                  </div>  
+                  </div>    
+               </h:column>
+               <h:column>
+                  <div class="panel panel-info" style="margin: 5px">
+                    <div class="panel-heading">
+                      <h3 class="panel-title"><span class="glyphicon glyphicon-earphone"></span> Citas:</h3>
+                    </div>
+                    <div class="panel-body">
+                       <a href="tratamientos/crearCita.jsf">Crear Citas</a><br/>
+                       <a href="tratamientos/listarCitas.jsf">Listar Citas</a>
+                    </div>  
+                   </div>  
+               </h:column>
+               <h:column>
+                  <div class="panel panel-info" style="margin: 5px">
+                    <div class="panel-heading">
+                      <h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> Usuarios:</h3>
+                    </div>
+                    <div class="panel-body">
+                       <a href="tratamientos/crearUsuario.jsf">Crear Usuario</a><br/>
+                       <a href="tratamientos/listarUsuarios.jsf">Listar Usuarios</a>
+                    </div>  
+                   </div>  
+               </h:column> 
+                 <h:column>
+                  <div class="panel panel-info" style="margin: 5px">
+                    <div class="panel-heading">
+                      <h3 class="panel-title"><span class="glyphicon glyphicon-plus"></span> Personal sanitario:</h3>
+                    </div>
+                    <div class="panel-body">
+                       <a href="tratamientos/crearSanitario.jsf">Crear personal sanitario</a><br/>
+                       <a href="tratamientos/listarSanitarios.jsf">Listar personal sanitario</a>
+                    </div>  
+                   </div>  
+               </h:column> 
+               <h:column>
+                  <div class="panel panel-info" style="margin: 5px">
+                    <div class="panel-heading">
+                      <h3 class="panel-title"><span class="glyphicon glyphicon-paperclip"></span> Datos clínicos:</h3>
+                    </div>
+                    <div class="panel-body">
+                       <a href="tratamientos/crearDato.jsf">Crear Datos clínicos</a><br/>
+                       <a href="tratamientos/listarDatos.jsf">Listar Datos clínicos</a>
+                    </div>  
+                   </div>  
+               </h:column>  
+            </h:panelGrid>                      
+          </h:form>
+    </h:body>
+</html>
+
