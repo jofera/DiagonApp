@@ -5,19 +5,27 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -33,8 +41,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Usuario.findByPassword", query = "SELECT u FROM Usuario u WHERE u.password = :password"),
     @NamedQuery(name = "Usuario.findByNombre", query = "SELECT u FROM Usuario u WHERE u.nombre = :nombre"),
     @NamedQuery(name = "Usuario.findByApellidos", query = "SELECT u FROM Usuario u WHERE u.apellidos = :apellidos"),
+    @NamedQuery(name = "Usuario.findByDireccion", query = "SELECT u FROM Usuario u WHERE u.direccion = :direccion"),
     @NamedQuery(name = "Usuario.findByTelefono", query = "SELECT u FROM Usuario u WHERE u.telefono = :telefono"),
-    @NamedQuery(name = "Usuario.findByEmail", query = "SELECT u FROM Usuario u WHERE u.email = :email"),
     @NamedQuery(name = "Usuario.findByFechaNacimiento", query = "SELECT u FROM Usuario u WHERE u.fechaNacimiento = :fechaNacimiento")})
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -45,40 +53,49 @@ public class Usuario implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 15)
+    @Size(min = 1, max = 20)
     @Column(name = "dni")
     private String dni;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 20)
     @Column(name = "password")
     private String password;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 20)
     @Column(name = "nombre")
     private String nombre;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 40)
     @Column(name = "apellidos")
     private String apellidos;
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 50)
     @Column(name = "direccion")
     private String direccion;
-    @Size(max = 30)
+    @Size(max = 20)
     @Column(name = "telefono")
     private String telefono;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Size(max = 100)
-    @Column(name = "email")
-    private String email;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
     @Column(name = "fecha_nacimiento")
-    private String fechaNacimiento;
+    @Temporal(TemporalType.DATE)
+    private Date fechaNacimiento;
+    @ManyToMany(mappedBy = "usuarioCollection")
+    private Collection<Rol> rolCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMedico")
+    private Collection<Paciente> pacienteCollection;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "idUsuario")
+    private Paciente paciente;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
+    private Collection<Cita> citaCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMedico")
+    private Collection<Cita> citaCollection1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
+    private Collection<Medico> medicoCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
+    private Collection<Tratamiento> tratamientoCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMedico")
+    private Collection<Tratamiento> tratamientoCollection1;
 
     public Usuario() {
     }
@@ -87,13 +104,12 @@ public class Usuario implements Serializable {
         this.id = id;
     }
 
-    public Usuario(Integer id, String dni, String password, String nombre, String apellidos, String fechaNacimiento) {
+    public Usuario(Integer id, String dni, String password, String nombre, String apellidos) {
         this.id = id;
         this.dni = dni;
         this.password = password;
         this.nombre = nombre;
         this.apellidos = apellidos;
-        this.fechaNacimiento = fechaNacimiento;
     }
 
     public Integer getId() {
@@ -152,20 +168,83 @@ public class Usuario implements Serializable {
         this.telefono = telefono;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getFechaNacimiento() {
+    public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(String fechaNacimiento) {
+    public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
+    }
+
+    @XmlTransient
+    public Collection<Rol> getRolCollection() {
+        return rolCollection;
+    }
+
+    public void setRolCollection(Collection<Rol> rolCollection) {
+        this.rolCollection = rolCollection;
+    }
+
+    @XmlTransient
+    public Collection<Paciente> getPacienteCollection() {
+        return pacienteCollection;
+    }
+
+    public void setPacienteCollection(Collection<Paciente> pacienteCollection) {
+        this.pacienteCollection = pacienteCollection;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+
+    @XmlTransient
+    public Collection<Cita> getCitaCollection() {
+        return citaCollection;
+    }
+
+    public void setCitaCollection(Collection<Cita> citaCollection) {
+        this.citaCollection = citaCollection;
+    }
+
+    @XmlTransient
+    public Collection<Cita> getCitaCollection1() {
+        return citaCollection1;
+    }
+
+    public void setCitaCollection1(Collection<Cita> citaCollection1) {
+        this.citaCollection1 = citaCollection1;
+    }
+
+    @XmlTransient
+    public Collection<Medico> getMedicoCollection() {
+        return medicoCollection;
+    }
+
+    public void setMedicoCollection(Collection<Medico> medicoCollection) {
+        this.medicoCollection = medicoCollection;
+    }
+
+    @XmlTransient
+    public Collection<Tratamiento> getTratamientoCollection() {
+        return tratamientoCollection;
+    }
+
+    public void setTratamientoCollection(Collection<Tratamiento> tratamientoCollection) {
+        this.tratamientoCollection = tratamientoCollection;
+    }
+
+    @XmlTransient
+    public Collection<Tratamiento> getTratamientoCollection1() {
+        return tratamientoCollection1;
+    }
+
+    public void setTratamientoCollection1(Collection<Tratamiento> tratamientoCollection1) {
+        this.tratamientoCollection1 = tratamientoCollection1;
     }
 
     @Override

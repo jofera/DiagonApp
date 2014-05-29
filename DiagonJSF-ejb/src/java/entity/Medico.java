@@ -5,7 +5,6 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,8 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -28,15 +25,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Azahar
  */
 @Entity
-@Table(name = "cita")
+@Table(name = "medico")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Cita.findAll", query = "SELECT c FROM Cita c"),
-    @NamedQuery(name = "Cita.findById", query = "SELECT c FROM Cita c WHERE c.id = :id"),
-    @NamedQuery(name = "Cita.findByConsulta", query = "SELECT c FROM Cita c WHERE c.consulta = :consulta"),
-    @NamedQuery(name = "Cita.findByFecha", query = "SELECT c FROM Cita c WHERE c.fecha = :fecha"),
-    @NamedQuery(name = "Cita.findByHora", query = "SELECT c FROM Cita c WHERE c.hora = :hora")})
-public class Cita implements Serializable {
+    @NamedQuery(name = "Medico.findAll", query = "SELECT m FROM Medico m"),
+    @NamedQuery(name = "Medico.findById", query = "SELECT m FROM Medico m WHERE m.id = :id"),
+    @NamedQuery(name = "Medico.findByConsulta", query = "SELECT m FROM Medico m WHERE m.consulta = :consulta"),
+    @NamedQuery(name = "Medico.findByTelefono", query = "SELECT m FROM Medico m WHERE m.telefono = :telefono")})
+public class Medico implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,35 +41,32 @@ public class Cita implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 15)
+    @Size(min = 1, max = 10)
     @Column(name = "consulta")
     private String consulta;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "fecha")
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
-    @Column(name = "hora")
-    @Temporal(TemporalType.TIME)
-    private Date hora;
+    @Size(min = 1, max = 20)
+    @Column(name = "telefono")
+    private String telefono;
+    @JoinColumn(name = "id_especialidad", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Especialidad idEspecialidad;
     @JoinColumn(name = "id_usuario", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Usuario idUsuario;
-    @JoinColumn(name = "id_medico", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Usuario idMedico;
 
-    public Cita() {
+    public Medico() {
     }
 
-    public Cita(Integer id) {
+    public Medico(Integer id) {
         this.id = id;
     }
 
-    public Cita(Integer id, String consulta, Date fecha) {
+    public Medico(Integer id, String consulta, String telefono) {
         this.id = id;
         this.consulta = consulta;
-        this.fecha = fecha;
+        this.telefono = telefono;
     }
 
     public Integer getId() {
@@ -92,20 +85,20 @@ public class Cita implements Serializable {
         this.consulta = consulta;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public String getTelefono() {
+        return telefono;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
-    public Date getHora() {
-        return hora;
+    public Especialidad getIdEspecialidad() {
+        return idEspecialidad;
     }
 
-    public void setHora(Date hora) {
-        this.hora = hora;
+    public void setIdEspecialidad(Especialidad idEspecialidad) {
+        this.idEspecialidad = idEspecialidad;
     }
 
     public Usuario getIdUsuario() {
@@ -114,14 +107,6 @@ public class Cita implements Serializable {
 
     public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
-    }
-
-    public Usuario getIdMedico() {
-        return idMedico;
-    }
-
-    public void setIdMedico(Usuario idMedico) {
-        this.idMedico = idMedico;
     }
 
     @Override
@@ -134,10 +119,10 @@ public class Cita implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Cita)) {
+        if (!(object instanceof Medico)) {
             return false;
         }
-        Cita other = (Cita) object;
+        Medico other = (Medico) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -146,7 +131,7 @@ public class Cita implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Cita[ id=" + id + " ]";
+        return "entity.Medico[ id=" + id + " ]";
     }
     
 }

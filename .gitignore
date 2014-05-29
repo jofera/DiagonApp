@@ -1,0 +1,6 @@
+/dist/
+/build/
+/DiagonJSF-war/build/
+/DiagonJSF-ejb/build/
+/DiagonJSF-ejb/dist/
+/DiagonJSF-war/dist/

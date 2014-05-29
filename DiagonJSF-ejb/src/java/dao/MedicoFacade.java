@@ -4,7 +4,7 @@
  */
 package dao;
 
-import entity.Sanitario;
+import entity.Medico;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
  * @author Azahar
  */
 @Stateless
-public class SanitarioFacade extends AbstractFacade<Sanitario> {
+public class MedicoFacade extends AbstractFacade<Medico> {
     @PersistenceContext(unitName = "DiagonJSF-ejbPU")
     private EntityManager em;
 
@@ -23,8 +23,8 @@ public class SanitarioFacade extends AbstractFacade<Sanitario> {
         return em;
     }
 
-    public SanitarioFacade() {
-        super(Sanitario.class);
+    public MedicoFacade() {
+        super(Medico.class);
     }
     
 }

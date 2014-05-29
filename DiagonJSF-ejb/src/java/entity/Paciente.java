@@ -8,9 +8,14 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -24,41 +29,44 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Paciente.findAll", query = "SELECT p FROM Paciente p"),
-    @NamedQuery(name = "Paciente.findByIdUsuario", query = "SELECT p FROM Paciente p WHERE p.idUsuario = :idUsuario"),
-    @NamedQuery(name = "Paciente.findByNuss", query = "SELECT p FROM Paciente p WHERE p.nuss = :nuss"),
-    @NamedQuery(name = "Paciente.findByMedicoAsignado", query = "SELECT p FROM Paciente p WHERE p.medicoAsignado = :medicoAsignado")})
+    @NamedQuery(name = "Paciente.findById", query = "SELECT p FROM Paciente p WHERE p.id = :id"),
+    @NamedQuery(name = "Paciente.findByNuss", query = "SELECT p FROM Paciente p WHERE p.nuss = :nuss")})
 public class Paciente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "id_usuario")
-    private Integer idUsuario;
+    @Column(name = "id")
+    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Column(name = "nuss")
     private int nuss;
-    @Column(name = "medico_asignado")
-    private Integer medicoAsignado;
+    @JoinColumn(name = "id_medico", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Usuario idMedico;
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id")
+    @OneToOne(optional = false)
+    private Usuario idUsuario;
 
     public Paciente() {
     }
 
-    public Paciente(Integer idUsuario) {
-        this.idUsuario = idUsuario;
+    public Paciente(Integer id) {
+        this.id = id;
     }
 
-    public Paciente(Integer idUsuario, int nuss) {
-        this.idUsuario = idUsuario;
+    public Paciente(Integer id, int nuss) {
+        this.id = id;
         this.nuss = nuss;
     }
 
-    public Integer getIdUsuario() {
-        return idUsuario;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public int getNuss() {
@@ -69,18 +77,26 @@ public class Paciente implements Serializable {
         this.nuss = nuss;
     }
 
-    public Integer getMedicoAsignado() {
-        return medicoAsignado;
+    public Usuario getIdMedico() {
+        return idMedico;
     }
 
-    public void setMedicoAsignado(Integer medicoAsignado) {
-        this.medicoAsignado = medicoAsignado;
+    public void setIdMedico(Usuario idMedico) {
+        this.idMedico = idMedico;
+    }
+
+    public Usuario getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Usuario idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idUsuario != null ? idUsuario.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -91,7 +107,7 @@ public class Paciente implements Serializable {
             return false;
         }
         Paciente other = (Paciente) object;
-        if ((this.idUsuario == null && other.idUsuario != null) || (this.idUsuario != null && !this.idUsuario.equals(other.idUsuario))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -99,7 +115,7 @@ public class Paciente implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Paciente[ idUsuario=" + idUsuario + " ]";
+        return "entity.Paciente[ id=" + id + " ]";
     }
     
 }
