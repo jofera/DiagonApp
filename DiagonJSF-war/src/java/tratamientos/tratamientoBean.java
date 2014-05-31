@@ -1,6 +1,8 @@
 package tratamientos;
 import dao.TratamientoFacade;
 import entity.Tratamiento;
+import entity.Usuario;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -20,8 +22,8 @@ public class tratamientoBean {
     private TratamientoFacade tratamientoFacade;
     
     //Recoger del form los valores
-    private Integer idmedico;
-    private String fecha;
+    private Usuario medico;
+    private Date fecha;
     private Integer duracion;
     private String descripcion;
     
@@ -59,19 +61,19 @@ public class tratamientoBean {
         this.tratamientoNuevo = trata;
     }
 
-    public Integer getIdmedico() {
-        return idmedico;
+    public Usuario getMedico() {
+        return medico;
     }
 
-    public void setIdmedico(Integer idmedico) {
-        this.idmedico = idmedico;
+    public void setMedico(Usuario medico) {
+        this.medico = medico;
     }
 
-    public String getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
@@ -108,9 +110,9 @@ public class tratamientoBean {
     }
     
     public String crearTratamiento() {
-        tratamientoNuevo.setMedico(idmedico);
-        tratamientoNuevo.setFinicio(fecha);
-        tratamientoNuevo.setDduracion(duracion);
+        tratamientoNuevo.setIdMedico(medico);
+        tratamientoNuevo.setFechaInicio(fecha);
+        tratamientoNuevo.setDuracion(duracion);
         tratamientoNuevo.setDescripcion(descripcion);
         tratamientoFacade.create(tratamientoNuevo);  
         System.out.println(tratamientoNuevo.getId());
