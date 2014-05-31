@@ -9,17 +9,28 @@
     </h:head>
     <h:body>        
         <f:view>
-            <h:form class="container">
+            <h:form class="container">                
                 <h2><h:outputText value="Crear un nuevo tratamiento:"/></h2><br/>
                 <h:panelGrid columns="2" width="500px">
 
-                    <h:outputLabel value="Médico:" for="medico" />
-                    <h:inputText id="medico" value="#{tratamientoBean.idmedico}" class="form-control" title="Medico" required="true" requiredMessage="El campo Médico es obligatorio."/>
-                    
+                    <h:outputLabel value="Medico:" for="idMedico" />
+                    <h:selectOneMenu id="idMedico" class="form-control" value="#{tratamientoBean.tratamientoNuevo.idMedico}" title="IdMedico" required="true" requiredMessage="El campo medico es obligatorio.">
+                        <f:selectItems value="#{tratamientoBean.listaMedicos}" />
+                    </h:selectOneMenu>
+                   
                     <h:outputLabel value=""/><h:outputLabel value=""/>
                     
-                    <h:outputLabel value="Fecha de inicio:" for="finicio" />
-                    <h:inputText class="form-control"  id="finicio" value="#{tratamientoBean.fecha}" title="Finicio" required="true" requiredMessage="El campo fecha de incicio es obligatorio."/>
+                    <h:outputLabel value="Prescribir a:" for="idUsuario" />
+                    <h:selectOneMenu id="idUsuario" class="form-control" value="#{tratamientoBean.tratamientoNuevo.idUsuario}" title="IdUsuario" required="true" requiredMessage="El campo usuario es obligatorio.">
+                        <f:selectItems value="#{tratamientoBean.listaUsuarios}" var="u" itemLabel="#{u.nombre.concat(' ').concat(u.apellidos)}" itemValue="#{u.id}" /> 
+                    </h:selectOneMenu>
+                    
+                    <h:outputLabel value=""/><h:outputLabel value=""/>
+               
+                    <h:outputLabel value="FechaInicio:" for="fechaInicio" />
+                    <h:inputText class="form-control" id="fechaInicio" value="#{tratamientoBean.tratamientoNuevo.fechaInicio}" title="FechaInicio" required="true" requiredMessage="El campo fecha de incicio es obligatorio.">
+                       <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
                     
                     <h:outputLabel value=""/><h:outputLabel value=""/>
                     

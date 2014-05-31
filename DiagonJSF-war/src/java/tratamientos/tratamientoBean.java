@@ -1,5 +1,8 @@
 package tratamientos;
+import dao.MedicoFacade;
 import dao.TratamientoFacade;
+import dao.UsuarioFacade;
+import entity.Medico;
 import entity.Tratamiento;
 import entity.Usuario;
 import java.util.Date;
@@ -17,8 +20,9 @@ import javax.inject.Named;
 @Named(value = "tratamientoBean")
 @RequestScoped
 public class tratamientoBean {
-    
     @EJB
+    private UsuarioFacade usuarioFacade;
+    private MedicoFacade medicoFacade;   
     private TratamientoFacade tratamientoFacade;
     
     //Recoger del form los valores
@@ -29,9 +33,10 @@ public class tratamientoBean {
     
     //Creacion de los tratamientos
     private Tratamiento tratamientoActual;
-    private Tratamiento tratamientoEditar;
     private Tratamiento tratamientoNuevo;
-    private List<Tratamiento> listaTratamientos;    
+    private List<Tratamiento> listaTratamientos; 
+    private List<Usuario> listaUsuarios;
+    private List<Medico> listaMedicos;
       
     public tratamientoBean() {        
    
@@ -40,17 +45,10 @@ public class tratamientoBean {
      @PostConstruct
      public void Init(){
          listaTratamientos = tratamientoFacade.findAll();
+         listaMedicos = medicoFacade.findAll();
+         listaUsuarios = usuarioFacade.findAll();
          tratamientoNuevo = new Tratamiento();
-         tratamientoEditar = new Tratamiento();
          tratamientoActual = new Tratamiento();
-    }
-
-    public Tratamiento getTratamientoEditar() {
-        return tratamientoEditar;
-    }
-
-    public void setTratamientoEditar(Tratamiento trata) {
-        this.tratamientoEditar = trata;
     }
 
     public Tratamiento getTratamientoNuevo() {
@@ -109,6 +107,22 @@ public class tratamientoBean {
         listaTratamientos = lista;
     }
     
+    public List<Usuario> getListaUsuarios() {
+        return listaUsuarios;
+    }
+
+    public void setListaUsuarios(List<Usuario> lista) {
+        this.listaUsuarios = lista;
+    }
+
+    public List<Medico> getListaMedicos() {
+        return listaMedicos;
+    }
+
+    public void setListaMedicos(List<Medico> listaMedicos) {
+        this.listaMedicos = listaMedicos;
+    }
+    
     public String crearTratamiento() {
         tratamientoNuevo.setIdMedico(medico);
         tratamientoNuevo.setFechaInicio(fecha);
@@ -120,10 +134,10 @@ public class tratamientoBean {
         return goToListarTratamientos();
      }    
 
-    public void editarTratamiento(int id){
+    public String editarTratamiento(int id){
         tratamientoFacade.edit(tratamientoActual);
         setListaTratamientos(tratamientoFacade.findAll());
-        goToListarTratamientos();
+        return goToListarTratamientos();
     }   
     
     public String goToEditarTratamiento(int id) {   
