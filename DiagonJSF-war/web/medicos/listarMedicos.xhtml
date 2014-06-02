@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Listado de médicos</title>
+        <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />    
+    </h:head>
+    <h:body class="container">
+        <f:view>
+            <h:form>
+                <h1><h:outputText value="Listado de Médicos"/></h1>
+                <h:dataTable value="#{medicoBean.listaMedicos}" var="item" class="table">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Id"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nombre"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idUsuario.nombre.concat(' ').concat(item.idUsuario.apellidos)}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Especialidad"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idEspecialidad.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Telefono"/>
+                        </f:facet>
+                        <h:outputText value="#{item.telefono}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Consulta"/>
+                        </f:facet>
+                        <h:outputText value="#{item.consulta}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Acción"/>
+                        </f:facet>
+                        <h:panelGroup layout="block">
+                            <h:panelGroup layout="block" style="float:left;margin-right:5px;">
+                                <h:commandLink value="Editar" action="#{medicoBean.goToEditarMedico(item.id)}" class="btn btn-info" title="Editar Usuario">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </h:commandLink>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block">
+                                <h:commandLink class="btn btn-danger" value="Eliminar" action="#{tratamientoBean.borrarTratamiento(item.id)}" title="Guardar cambios realizados" onclick="if (!confirm('¿Seguro que quieres eliminar el tratamiento?')) return false;">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </h:commandLink>
+                            </h:panelGroup>
+                        </h:panelGroup>
+                    </h:column>
+                </h:dataTable>
+                <a href="../index.jsf" class="btn btn-info" > <span class="glyphicon glyphicon-home"></span>  Inicio</a>
+            </h:form>
+        </f:view>
+
+    </h:body>
+</html>
+

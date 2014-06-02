@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Crear Médico</title>
+        <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />    
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form class="container">
+                <h1><h:outputText value="Crear un médico nuevo"/></h1>
+                <h:panelGrid columns="2" width="500px">
+                    <h:outputLabel value=""/><h:outputLabel value=""/>
+                    <h:outputLabel value="Usuario:" for="idUsuario" />
+                    <h:selectOneMenu id="idUsuario" value="#{medicoBean.idUsuario}" class="form-control" title="Usuario" required="true" requiredMessage="El campo usuario es obligatorio">
+                        <f:selectItems value="#{medicoBean.listaUsuarios}" var="user" itemLabel="#{user.nombre.concat(' ').concat(user.apellidos)}" itemValue="#{user.id}" />
+                    </h:selectOneMenu>
+                    <h:outputLabel value=""/><h:outputLabel value=""/>
+                    <h:outputLabel value="Especialidad:" for="idEspecialidad" />
+                    <h:selectOneMenu id="idEspecialidad" value="#{medicoBean.idEspecialidad}" class="form-control" title="Especialidad" required="true" requiredMessage="El campo especialidad es obligatorio">
+                        <f:selectItems value="#{medicoBean.listaEspecialidades}" var="esp" itemLabel="#{esp.nombre}" itemValue="#{esp.id}" />
+                    </h:selectOneMenu>
+                    <h:outputLabel value=""/><h:outputLabel value=""/>
+                    <h:outputLabel value="Consulta:" for="consulta" />
+                    <h:inputText id="consulta" value="#{medicoBean.nuevoMedico.consulta}" class="form-control"  title="Consulta" required="true" requiredMessage="El campo consulta es obligatorio."/>
+                    <h:outputLabel value=""/><h:outputLabel value=""/>
+                    <h:outputLabel value="Telefono:" for="telefono" />
+                    <h:inputText id="telefono" value="#{medicoBean.nuevoMedico.telefono}" class="form-control"  title="Telefono" required="true" requiredMessage="El campo teléfono es obligatorio."/>
+                    <h:outputLabel value=""/><h:outputLabel value=""/>
+                    <h:commandButton value="Crear " class="btn btn-success" action="#{medicoBean.crearMedico()}"/>
+                    <a href="../index.jsf"  class="btn btn-danger" > <span class="glyphicon glyphicon-remove"></span> Cancelar</a>
+                </h:panelGrid>
+            </h:form>
+        </f:view>
+        
+    </h:body>
+</html>

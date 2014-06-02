@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Editar Médico</title>
+        <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />    
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form class="container">
+                <h1><h:outputText value="Editar Usuario"/></h1>
+                <h:panelGrid columns="2" width="500px">
+                    <h:outputLabel value="" />
+                    <h:inputHidden id="id" value="#{medicoBean.editarMedico.id}" required="true" requiredMessage="The Id field is required." />
+                    <h:outputLabel value=""/><h:outputLabel value=""/>
+                    <h:outputLabel value="Usuario:" for="idUsuario" />
+                    <h:selectOneMenu id="idUsuario" value="#{medicoBean.idUsuario}" title="IdUsuario" required="true" requiredMessage="The IdUsuario field is required.">
+                        <f:selectItems value="#{medicoBean.listaUsuarios}" var="user" itemLabel="#{user.nombre.concat(' ').concat(user.apellidos)}" itemValue="#{user.id}" />
+                    </h:selectOneMenu>
+                    <h:outputLabel value=""/><h:outputLabel value=""/>
+                    <h:outputLabel value="Especialidad:" for="idEspecialidad" />
+                    <h:selectOneMenu id="idEspecialidad" value="#{medicoBean.idEspecialidad}" title="IdEspecialidad" required="true" requiredMessage="The IdEspecialidad field is required.">
+                        <f:selectItems value="#{medicoBean.listaEspecialidades}" var="esp" itemLabel="#{esp.nombre}" itemValue="#{esp.id}" />
+                    </h:selectOneMenu>
+                    <h:outputLabel value=""/><h:outputLabel value=""/>
+                    <h:outputLabel value="Consulta:" for="consulta" />
+                    <h:inputText id="consulta" value="#{medicoBean.editarMedico.consulta}" title="Consulta" required="true" requiredMessage="The Consulta field is required."/>
+                    <h:outputLabel value=""/><h:outputLabel value=""/>
+                    <h:outputLabel value="Telefono:" for="telefono" />
+                    <h:inputText id="telefono" value="#{medicoBean.editarMedico.telefono}" title="Telefono" required="true" requiredMessage="The Telefono field is required."/>
+                    <h:outputLabel value="" /><h:outputLabel value="" />
+                    <h:outputLink value="#{medicoBean.goToListadoMedicos()}" class="btn btn-danger" title="Volver al listado anterior">
+                        Volver <span class="glyphicon glyphicon-repeat"></span>
+                    </h:outputLink>
+                    <h:commandLink class="btn btn-success" value="Guardar" action="#{medicoBean.editarMedico()}" title="Guardar cambios realizados">
+                        <span class="glyphicon glyphicon-floppy-save"></span>
+                    </h:commandLink>
+                </h:panelGrid>
+            </h:form>
+        </f:view>
+
+    </h:body>
+</html>
+
