@@ -22,7 +22,9 @@ import javax.inject.Named;
 public class tratamientoBean {
     @EJB
     private UsuarioFacade usuarioFacade;
+    @EJB
     private MedicoFacade medicoFacade;   
+    @EJB
     private TratamientoFacade tratamientoFacade;
     
     //Recoger del form los valores
