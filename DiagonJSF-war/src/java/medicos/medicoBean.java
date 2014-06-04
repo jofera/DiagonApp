@@ -173,4 +173,5 @@ public class medicoBean implements Serializable {
         return "listarMedicos.jsf";
     }
 
+    
 }
