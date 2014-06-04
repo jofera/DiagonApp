@@ -51,14 +51,19 @@
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Acción"/>
-                        </f:facet>
-                        <h:commandButton value="Editar" class="btn btn-info" action="#{tratamientoBean.goToEditarTratamiento(item.id)}"/>
-
-                            &nbsp;&nbsp;
-                           
-                            <h:commandButton value="Eliminar" class="btn btn-danger" action="#{tratamientoBean.borrarTratamiento(item.id)}" onclick="if (!confirm('¿Seguro que quieres eliminar el tratamiento?')) return false">
-                           <!-- <f:ajax event="click" execute="confirmacion"/>-->
-                        </h:commandButton>
+                        </f:facet>                        
+                         <h:panelGroup layout="block">
+                            <h:panelGroup layout="block" style="float:left;margin-right:5px;">
+                                <h:commandLink value="Editar" action="#{tratamientoBean.goToEditarTratamiento(item.id)}" class="btn btn-info" title="Editar Tratamiento">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </h:commandLink>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block">
+                                <h:commandLink class="btn btn-danger" value="Eliminar" action="#{tratamientoBean.borrarTratamiento(item.id)}" title="Guardar cambios realizados" onclick="if (!confirm('¿Seguro que quieres eliminar el tratamiento?')) return false;">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </h:commandLink>
+                            </h:panelGroup>
+                        </h:panelGroup>
                     </h:column>
                 </h:dataTable>
                 <a href="../index.jsf" class="btn btn-info" > <span class="glyphicon glyphicon-home"></span>  Inicio</a>
