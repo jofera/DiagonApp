@@ -22,8 +22,14 @@
                         <f:facet name="header">
                             <h:outputText value="Medico"/>
                         </f:facet>
-                        <h:outputText value="#{item.idMedico}"/>
+                        <h:outputText value="#{item.idMedico.idUsuario.nombre.concat(' ').concat(item.idMedico.idUsuario.apellidos)}"/>
                     </h:column>
+                     <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Paciente"/>
+                        </f:facet>
+                         <h:outputText value="#{item.idUsuario.nombre.concat(' ').concat(item.idUsuario.apellidos)}"/>
+                    </h:column>   
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Finicio"/>

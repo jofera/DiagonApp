@@ -14,14 +14,14 @@
                 <h:panelGrid columns="2" width="500px">
 
                     <h:outputLabel value="Medico:" for="idMedico" />
-                    <h:selectOneMenu id="idMedico" class="form-control" value="#{tratamientoBean.tratamientoNuevo.idMedico}" title="IdMedico" required="true" requiredMessage="El campo medico es obligatorio.">
-                        <f:selectItems value="#{tratamientoBean.listaMedicos}" />
-                    </h:selectOneMenu>
+                    <h:selectOneMenu id="idMedico" class="form-control" value="#{tratamientoBean.idMedico}" title="IdMedico" required="true" requiredMessage="El campo medico es obligatorio.">
+                        <f:selectItems value="#{tratamientoBean.listaMedicos}" var="m" itemLabel="#{m.idUsuario.nombre.concat(' ').concat(m.idUsuario.apellidos)}" itemValue="#{m.id}" />
+                    </h:selectOneMenu>   
                    
                     <h:outputLabel value=""/><h:outputLabel value=""/>
                     
                     <h:outputLabel value="Prescribir a:" for="idUsuario" />
-                    <h:selectOneMenu id="idUsuario" class="form-control" value="#{tratamientoBean.tratamientoNuevo.idUsuario}" title="IdUsuario" required="true" requiredMessage="El campo usuario es obligatorio.">
+                    <h:selectOneMenu id="idUsuario" class="form-control" value="#{tratamientoBean.idPaciente}" title="IdUsuario" required="true" requiredMessage="El campo usuario es obligatorio.">
                         <f:selectItems value="#{tratamientoBean.listaUsuarios}" var="u" itemLabel="#{u.nombre.concat(' ').concat(u.apellidos)}" itemValue="#{u.id}" /> 
                     </h:selectOneMenu>
                     
@@ -35,12 +35,12 @@
                     <h:outputLabel value=""/><h:outputLabel value=""/>
                     
                     <h:outputLabel value="Duracion:" for="dduracion" />
-                    <h:inputText id="dduracion" class="form-control"  value="#{tratamientoBean.duracion}" title="Dduracion" required="true" requiredMessage="El campo duración es obligatorio."/>
+                    <h:inputText id="dduracion" class="form-control"  value="#{tratamientoBean.tratamientoNuevo.duracion}" title="Dduracion" required="true" requiredMessage="El campo duración es obligatorio."/>
                     
                     <h:outputLabel value=""/><h:outputLabel value=""/>
                     
                     <h:outputLabel value="Descripcion:" for="descripcion" />                    
-                    <h:inputTextarea rows="3" class="form-control"  cols="30" id="descripcion" value="#{tratamientoBean.descripcion}" title="Descripcion" required="true" requiredMessage="El campo descripción es obligatorio."/>
+                    <h:inputTextarea rows="3" class="form-control"  cols="30" id="descripcion" value="#{tratamientoBean.tratamientoNuevo.descripcion}" title="Descripcion" required="true" requiredMessage="El campo descripción es obligatorio."/>
                     
                     <h:outputLabel value=""/><h:outputLabel value=""/>
 

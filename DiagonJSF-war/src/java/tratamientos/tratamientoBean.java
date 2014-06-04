@@ -5,7 +5,6 @@ import dao.UsuarioFacade;
 import entity.Medico;
 import entity.Tratamiento;
 import entity.Usuario;
-import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -28,10 +27,11 @@ public class tratamientoBean {
     private TratamientoFacade tratamientoFacade;
     
     //Recoger del form los valores
-    private Usuario medico;
-    private Date fecha;
-    private Integer duracion;
-    private String descripcion;
+    private int idMedico;
+    private int idPaciente;    
+       
+    private Medico medico;
+    private Usuario paciente;
     
     //Creacion de los tratamientos
     private Tratamiento tratamientoActual;
@@ -53,54 +53,57 @@ public class tratamientoBean {
          tratamientoActual = new Tratamiento();
     }
 
+    //Getter and setter de los tratamientos y usuarios
+    public Tratamiento getTratamientoActual() {
+        return tratamientoActual;
+    }
+        
+    public void setTratamientoActual(Tratamiento Trata) {
+        tratamientoActual = Trata;
+    }     
+      
     public Tratamiento getTratamientoNuevo() {
         return tratamientoNuevo;
     }
 
     public void setTratamientoNuevo(Tratamiento trata) {
         this.tratamientoNuevo = trata;
-    }
-
-    public Usuario getMedico() {
+    }    
+    
+    public Medico getMedico() {
         return medico;
     }
 
-    public void setMedico(Usuario medico) {
+    public void setMedico(Medico medico) {
         this.medico = medico;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public Usuario getPaciente() {
+        return paciente;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setPaciente(Usuario paciente) {
+        this.paciente = paciente;
     }
 
-    public Integer getDuracion() {
-        return duracion;
+    //Getter and setter para los campos del formulario
+    public int getIdMedico() {
+        return idMedico;
     }
 
-    public void setDuracion(Integer duracion) {
-        this.duracion = duracion;
+    public void setIdMedico(int idMedico) {
+        this.idMedico = idMedico;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public int getIdPaciente() {
+        return idPaciente;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }   
-
-    public Tratamiento getTratamientoActual() {
-        return tratamientoActual;
+    public void setIdPaciente(int idPaciente) {
+        this.idPaciente = idPaciente;
     }
-
-    public void setTratamientoActual(Tratamiento Trata) {
-        tratamientoActual = Trata;
-    }
-
+ 
+    //Getter and setter de las listas.
     public List<Tratamiento> getListaTratamientos() {
         return listaTratamientos;
     }
@@ -121,25 +124,45 @@ public class tratamientoBean {
         return listaMedicos;
     }
 
-    public void setListaMedicos(List<Medico> listaMedicos) {
-        this.listaMedicos = listaMedicos;
+    public void setListaMedicos(List<Medico> lista) {
+        this.listaMedicos = lista;
     }
     
     public String crearTratamiento() {
-        //Cambiar esto: había un error, se pasa un Usuario en vez de un Médico
-        /* tratamientoNuevo.setIdMedico(medico); */
-        tratamientoNuevo.setFechaInicio(fecha);
-        tratamientoNuevo.setDuracion(duracion);
-        tratamientoNuevo.setDescripcion(descripcion);
+        //Con los ids recogidos del formulario buscamos el medico y el usuario correspondiente.        
+        medico = medicoFacade.find(idMedico);
+        paciente = usuarioFacade.find(idPaciente);
+        
+        //Asignamos todos los valores al tratamiento nuevo
+        tratamientoNuevo.setIdMedico(medico);
+        tratamientoNuevo.setIdUsuario(paciente);
+      
+        //creamos el nuevo tratamiento en la BD
         tratamientoFacade.create(tratamientoNuevo);  
-        System.out.println(tratamientoNuevo.getId());
+        
+        //Volvemos a buscar todos los tratamientos para que se actualice la lista.
         listaTratamientos = tratamientoFacade.findAll();    
+        //Mostramos en pantalla la lista de tratamientos.
         return goToListarTratamientos();
      }    
 
-    public String editarTratamiento(int id){
+    public String editarTratamiento(){
+        
+        //Con los ids recogidos del formulario buscamos el medico y el usuario correspondiente.        
+        medico = medicoFacade.find(idMedico);
+        paciente = usuarioFacade.find(idPaciente);
+        
+        //Asignamos todos los valores al tratamiento nuevo  
+        tratamientoActual.setIdMedico(medico);
+        tratamientoActual.setIdUsuario(paciente);
+        
+        //Editamos el tratamiento en la BD
         tratamientoFacade.edit(tratamientoActual);
+        
+        //Volvemos a buscar todos los tratamientos para que se actualice la lista.
         setListaTratamientos(tratamientoFacade.findAll());
+        
+        //Mostramos en pantalla la lista de tratamientos.
         return goToListarTratamientos();
     }   
     
