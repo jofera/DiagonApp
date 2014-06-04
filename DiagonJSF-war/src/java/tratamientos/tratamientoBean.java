@@ -126,7 +126,8 @@ public class tratamientoBean {
     }
     
     public String crearTratamiento() {
-        tratamientoNuevo.setIdMedico(medico);
+        //Cambiar esto: había un error, se pasa un Usuario en vez de un Médico
+        /* tratamientoNuevo.setIdMedico(medico); */
         tratamientoNuevo.setFechaInicio(fecha);
         tratamientoNuevo.setDuracion(duracion);
         tratamientoNuevo.setDescripcion(descripcion);

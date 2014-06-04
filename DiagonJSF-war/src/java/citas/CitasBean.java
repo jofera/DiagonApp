@@ -46,6 +46,7 @@ public class CitasBean {
       
     @PostConstruct
     public void Init(){
+        nuevaCita = new Cita();
         listaMedicos = medicoFacade.findAll();
         listaUsuarios = usuarioFacade.findAll();
         listaCitas = citaFacade.findAll();
@@ -84,9 +85,8 @@ public class CitasBean {
     }
 
     public void crearCita(){
-        //nuevaCita.setIdMedico(medicoFacade.find(this));
-        nuevaCita.set
-        nuevaCita.setIdUsuario(null);
+        nuevaCita.setIdMedico(medicoFacade.find(medico));
+        nuevaCita.setIdUsuario(usuarioFacade.find(usuario));
         citaFacade.create(nuevaCita);
     }
 

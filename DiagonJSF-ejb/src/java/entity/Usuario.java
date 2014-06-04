@@ -14,7 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -29,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Azahar
+ * @author user
  */
 @Entity
 @Table(name = "usuario")
@@ -80,22 +79,16 @@ public class Usuario implements Serializable {
     @Column(name = "fecha_nacimiento")
     @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
-    @ManyToMany(mappedBy = "usuarioCollection")
-    private Collection<Rol> rolCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMedico")
-    private Collection<Paciente> pacienteCollection;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "idUsuario")
     private Paciente paciente;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMedico")
+    private Collection<Paciente> pacienteCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
     private Collection<Cita> citaCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMedico")
-    private Collection<Cita> citaCollection1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
     private Collection<Medico> medicoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
     private Collection<Tratamiento> tratamientoCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMedico")
-    private Collection<Tratamiento> tratamientoCollection1;
 
     public Usuario() {
     }
@@ -176,13 +169,12 @@ public class Usuario implements Serializable {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    @XmlTransient
-    public Collection<Rol> getRolCollection() {
-        return rolCollection;
+    public Paciente getPaciente() {
+        return paciente;
     }
 
-    public void setRolCollection(Collection<Rol> rolCollection) {
-        this.rolCollection = rolCollection;
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 
     @XmlTransient
@@ -194,14 +186,6 @@ public class Usuario implements Serializable {
         this.pacienteCollection = pacienteCollection;
     }
 
-    public Paciente getPaciente() {
-        return paciente;
-    }
-
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
-    }
-
     @XmlTransient
     public Collection<Cita> getCitaCollection() {
         return citaCollection;
@@ -209,15 +193,6 @@ public class Usuario implements Serializable {
 
     public void setCitaCollection(Collection<Cita> citaCollection) {
         this.citaCollection = citaCollection;
-    }
-
-    @XmlTransient
-    public Collection<Cita> getCitaCollection1() {
-        return citaCollection1;
-    }
-
-    public void setCitaCollection1(Collection<Cita> citaCollection1) {
-        this.citaCollection1 = citaCollection1;
     }
 
     @XmlTransient
@@ -236,15 +211,6 @@ public class Usuario implements Serializable {
 
     public void setTratamientoCollection(Collection<Tratamiento> tratamientoCollection) {
         this.tratamientoCollection = tratamientoCollection;
-    }
-
-    @XmlTransient
-    public Collection<Tratamiento> getTratamientoCollection1() {
-        return tratamientoCollection1;
-    }
-
-    public void setTratamientoCollection1(Collection<Tratamiento> tratamientoCollection1) {
-        this.tratamientoCollection1 = tratamientoCollection1;
     }
 
     @Override

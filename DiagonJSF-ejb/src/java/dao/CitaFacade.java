@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Azahar
+ * @author user
  */
 @Stateless
 public class CitaFacade extends AbstractFacade<Cita> {

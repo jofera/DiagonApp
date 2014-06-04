@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Azahar
+ * @author user
  */
 @Entity
 @Table(name = "cita")
@@ -61,7 +61,7 @@ public class Cita implements Serializable {
     private Usuario idUsuario;
     @JoinColumn(name = "id_medico", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Usuario idMedico;
+    private Medico idMedico;
 
     public Cita() {
     }
@@ -116,11 +116,11 @@ public class Cita implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public Usuario getIdMedico() {
+    public Medico getIdMedico() {
         return idMedico;
     }
 
-    public void setIdMedico(Usuario idMedico) {
+    public void setIdMedico(Medico idMedico) {
         this.idMedico = idMedico;
     }
 

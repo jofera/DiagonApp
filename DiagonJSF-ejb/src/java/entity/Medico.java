@@ -5,7 +5,9 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,14 +17,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Azahar
+ * @author user
  */
 @Entity
 @Table(name = "medico")
@@ -49,12 +53,16 @@ public class Medico implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "telefono")
     private String telefono;
-    @JoinColumn(name = "id_especialidad", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Especialidad idEspecialidad;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMedico")
+    private Collection<Cita> citaCollection;
     @JoinColumn(name = "id_usuario", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Usuario idUsuario;
+    @JoinColumn(name = "id_especialidad", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Especialidad idEspecialidad;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMedico")
+    private Collection<Tratamiento> tratamientoCollection;
 
     public Medico() {
     }
@@ -93,12 +101,13 @@ public class Medico implements Serializable {
         this.telefono = telefono;
     }
 
-    public Especialidad getIdEspecialidad() {
-        return idEspecialidad;
+    @XmlTransient
+    public Collection<Cita> getCitaCollection() {
+        return citaCollection;
     }
 
-    public void setIdEspecialidad(Especialidad idEspecialidad) {
-        this.idEspecialidad = idEspecialidad;
+    public void setCitaCollection(Collection<Cita> citaCollection) {
+        this.citaCollection = citaCollection;
     }
 
     public Usuario getIdUsuario() {
@@ -107,6 +116,23 @@ public class Medico implements Serializable {
 
     public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public Especialidad getIdEspecialidad() {
+        return idEspecialidad;
+    }
+
+    public void setIdEspecialidad(Especialidad idEspecialidad) {
+        this.idEspecialidad = idEspecialidad;
+    }
+
+    @XmlTransient
+    public Collection<Tratamiento> getTratamientoCollection() {
+        return tratamientoCollection;
+    }
+
+    public void setTratamientoCollection(Collection<Tratamiento> tratamientoCollection) {
+        this.tratamientoCollection = tratamientoCollection;
     }
 
     @Override
