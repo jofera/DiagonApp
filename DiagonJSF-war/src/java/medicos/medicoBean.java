@@ -31,18 +31,68 @@ public class medicoBean implements Serializable {
     @EJB
     private MedicoFacade medicoFacade;
     
-    // Listas de objetos
+    /**** Listas de objetos  ****/
     private List<Medico> listaMedicos;
     private List<Especialidad> listaEspecialidades;
     private List<Usuario> listaUsuarios;
     
-    // Objetos para el CRUD
-    private Medico nuevoMedico, editarMedico;
+    /**** Objetos para el CRUD ****/
+    private Medico nuevoMedico, editarMedico, borrarMedico;
     
-    // Variables para recoger valores del Form
+    /**** Variables ****/
     private int idUsuario, idEspecialidad;
     private String consulta, telefono;
 
+
+    /**
+     * Creates a new instance of medicosBean
+     */
+    public medicoBean() {
+    }
+    
+     @PostConstruct
+     public void Init(){
+         listaMedicos = medicoFacade.findAll();
+         listaEspecialidades = especialidadFacade.findAll();
+         listaUsuarios = usuarioFacade.findAll();
+         nuevoMedico = new Medico();
+         editarMedico = new Medico();
+    }
+    
+    /**** Funciones CRUD ****/
+    public String crearMedico(){
+        nuevoMedico.setIdUsuario(usuarioFacade.find(idUsuario));
+        nuevoMedico.setIdEspecialidad(especialidadFacade.find(idEspecialidad));
+        medicoFacade.create(nuevoMedico);
+        listaMedicos = medicoFacade.findAll();
+        return this.goToListadoMedicos();
+    }
+    
+    public String editarMedico(){
+        editarMedico.setIdUsuario(usuarioFacade.find(this.idUsuario));
+        editarMedico.setIdEspecialidad(especialidadFacade.find(this.idEspecialidad));
+        medicoFacade.edit(editarMedico);
+        listaMedicos = medicoFacade.findAll();
+        return this.goToListadoMedicos();
+    }
+    
+    public String borrarMedico(int id){
+        medicoFacade.remove(medicoFacade.find(id));
+        listaMedicos = medicoFacade.findAll();
+        return this.goToListadoMedicos();
+    }
+    
+    public String goToEditarMedico(int id){
+        editarMedico = medicoFacade.find(id);
+        idUsuario = editarMedico.getIdUsuario().getId();
+        idEspecialidad = editarMedico.getIdEspecialidad().getId();
+        return "editarMedico.jsf";
+    }
+    
+    public String goToListadoMedicos(){
+        return "listarMedicos.jsf";
+    }
+    
     public UsuarioFacade getUsuarioFacade() {
         return usuarioFacade;
     }
@@ -90,22 +140,6 @@ public class medicoBean implements Serializable {
     public void setEspecialidadFacade(EspecialidadFacade especialidadFacade) {
         this.especialidadFacade = especialidadFacade;
     }
-    
-
-    /**
-     * Creates a new instance of medicosBean
-     */
-    public medicoBean() {
-    }
-    
-     @PostConstruct
-     public void Init(){
-         listaMedicos = medicoFacade.findAll();
-         listaEspecialidades = especialidadFacade.findAll();
-         listaUsuarios = usuarioFacade.findAll();
-         nuevoMedico = new Medico();
-         editarMedico = new Medico();
-    }
 
     public MedicoFacade getMedicoFacade() {
         return medicoFacade;
@@ -135,19 +169,6 @@ public class medicoBean implements Serializable {
         this.listaEspecialidades = listaEspecialidades;
     }
     
-    public void crearMedico(){
-        nuevoMedico.setIdUsuario(usuarioFacade.find(idUsuario));
-        nuevoMedico.setIdEspecialidad(especialidadFacade.find(idEspecialidad));
-        medicoFacade.create(nuevoMedico);
-    }
-    
-    public String editarMedico(){
-        editarMedico.setIdUsuario(usuarioFacade.find(this.idUsuario));
-        editarMedico.setIdEspecialidad(especialidadFacade.find(this.idEspecialidad));
-        medicoFacade.edit(editarMedico);
-        return null;
-    }   
-    
     public List<Usuario> getListaUsuarios() {
         return listaUsuarios;
     }
@@ -162,16 +183,6 @@ public class medicoBean implements Serializable {
 
     public void setEditarMedico(Medico editarMedico) {
         this.editarMedico = editarMedico;
-    }
-    
-    public String goToEditarMedico(int id){
-        editarMedico = medicoFacade.find(id);
-        return "editarMedico.jsf";
-    }
-    
-    public String goToListadoMedicos(){
-        return "listarMedicos.jsf";
-    }
-
+    }    
     
 }

@@ -17,7 +17,7 @@
                     <h:outputLabel value=""/><h:outputLabel value=""/>
                     <h:outputLabel value="Usuario:" for="idUsuario" />
                     <h:selectOneMenu id="idUsuario" value="#{medicoBean.idUsuario}" title="IdUsuario" required="true" requiredMessage="The IdUsuario field is required.">
-                        <f:selectItems value="#{medicoBean.listaUsuarios}" var="user" itemLabel="#{user.nombre.concat(' ').concat(user.apellidos)}" itemValue="#{user.id}" />
+                        <f:selectItems value="#{medicoBean.listaUsuarios}"  var="user" itemLabel="#{user.nombre.concat(' ').concat(user.apellidos)}" itemValue="#{user.id}" />
                     </h:selectOneMenu>
                     <h:outputLabel value=""/><h:outputLabel value=""/>
                     <h:outputLabel value="Especialidad:" for="idEspecialidad" />

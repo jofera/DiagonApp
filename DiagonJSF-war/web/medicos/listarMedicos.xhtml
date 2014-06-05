@@ -53,7 +53,7 @@
                                 </h:commandLink>
                             </h:panelGroup>
                             <h:panelGroup layout="block">
-                                <h:commandLink class="btn btn-danger" value="Eliminar" action="#{tratamientoBean.borrarTratamiento(item.id)}" title="Guardar cambios realizados" onclick="if (!confirm('¿Seguro que quieres eliminar el tratamiento?')) return false;">
+                                <h:commandLink class="btn btn-danger" value="Eliminar" action="#{medicoBean.borrarMedico(item.id)}" title="Guardar cambios realizados" onclick="if (!confirm('¿Seguro que quieres eliminar el medico #{item.idUsuario.nombre.concat(' ').concat(item.idUsuario.apellidos)}?')) return false;">
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </h:commandLink>
                             </h:panelGroup>
