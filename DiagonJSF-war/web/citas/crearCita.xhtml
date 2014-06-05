@@ -5,35 +5,106 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Crear Cita</title>
+        <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />    
+        <link rel="stylesheet" href="../bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
     </h:head>
     <h:body>
+        <div class="container">
         <f:view>
-            <h:form>
-                <h1><h:outputText value="Create/Edit"/></h1>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="Consulta:" for="consulta" />
-                    <h:inputText id="consulta" value="#{citasBean.nuevaCita.consulta}" title="Consulta" required="true" requiredMessage="The Consulta field is required."/>
-                    <h:outputLabel value="Fecha:" for="fecha" />
-                    <h:inputText id="fecha" value="#{citasBean.nuevaCita.fecha}" title="Fecha" required="true" requiredMessage="The Fecha field is required.">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:inputText>
-                    <h:outputLabel value="Hora:" for="hora" />
-                    <h:inputText id="hora" value="#{citasBean.nuevaCita.hora}" title="Hora" >
-                        <f:convertDateTime pattern="HH:mm:ss" />
-                    </h:inputText>
-                    <h:outputLabel value="Usuario:" for="idUsuario" />
-                    <h:selectOneMenu id="idUsuario" value="#{citasBean.usuario}" title="IdUsuario" required="true" requiredMessage="The IdUsuario field is required.">
-                        <f:selectItems value="#{citasBean.listaUsuarios}" var="user" itemLabel="#{user.nombre.concat(' ').concat(user.apellidos)}" itemValue="#{user.id}" />
-                    </h:selectOneMenu>
-                    <h:outputLabel value="IdMedico:" for="idMedico" />
-                    <h:selectOneMenu id="idMedico" value="#{citasBean.medico}" title="IdMedico" required="true" requiredMessage="The IdMedico field is required.">
-                        <f:selectItems value="#{citasBean.listaMedicos}" var="med" itemLabel="#{med.idUsuario.nombre.concat(' ').concat(med.idUsuario.apellidos)}" itemValue="#{med.id}" />
-                    </h:selectOneMenu>
-                    <h:commandButton value="Crear " class="btn btn-success" action="#{citasBean.crearCita()}"/>
-                </h:panelGrid>
+            <h:form class="form-horizontal">
+                <div class="row">
+                    <h1 style="padding-left: 160px"><h:outputText value="Crear una Cita"/></h1>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel class="col-sm-2 control-label" value="Consulta:" for="consulta" />
+                    <div class="col-sm-5">
+                        <h:inputText class="form-control" id="consulta" value="#{citasBean.nuevaCita.consulta}" title="Consulta" required="true" requiredMessage="El campo consulta no es requerido."/>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <h:outputLabel class="col-sm-2 control-label" value="Fecha:" for="fecha" />
+                    <div class="col-sm-5">
+                        <div class="form-group" style="width:100%; padding-left: 15px">
+                            <div class='input-group date' id='datetimepicker1'>
+                                <h:inputText class="form-control" id="fecha" value="#{citasBean.nuevaCita.fecha}" title="Fecha" required="true" requiredMessage="The Fecha field is required.">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:inputText>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <h:outputLabel class="col-sm-2 control-label" value="Hora:" for="hora" />
+                    <div class="col-sm-5">
+                        <div class="form-group" style="width:100%; padding-left: 15px">
+                            <div class='input-group date' id='timepicker'>
+                                <h:inputText class="form-control" id="hora" value="#{citasBean.nuevaCita.hora}" title="Hora" >
+                                    <f:convertDateTime pattern="HH:mm:ss" />
+                                </h:inputText>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <h:outputLabel class="col-sm-2 control-label" value="Usuario:" for="idUsuario" />
+                    <div class="col-sm-5">
+                        <h:selectOneMenu class="form-control" id="idUsuario" value="#{citasBean.usuario}" title="IdUsuario" required="true" requiredMessage="The IdUsuario field is required.">
+                            <f:selectItems value="#{citasBean.listaUsuarios}" var="user" itemLabel="#{user.nombre.concat(' ').concat(user.apellidos)}" itemValue="#{user.id}" />
+                        </h:selectOneMenu>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <h:outputLabel class="col-sm-2 control-label" value="IdMedico:" for="idMedico" />
+                    <div class="col-sm-5">
+                        <h:selectOneMenu class="form-control" id="idMedico" value="#{citasBean.medico}" title="IdMedico" required="true" requiredMessage="The IdMedico field is required.">
+                            <f:selectItems value="#{citasBean.listaMedicos}" var="med" itemLabel="#{med.idUsuario.nombre.concat(' ').concat(med.idUsuario.apellidos)}" itemValue="#{med.id}" />
+                        </h:selectOneMenu>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <h:commandButton value="Crear " class="btn btn-success col-sm-offset-2" action="#{citasBean.crearCita()}"/>
+                </div>
+                                        
+                    
+                    
+                    
+                    
+                    
+                
             </h:form>
         </f:view>
+        </div>
+        <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="../bower_components/moment/min/moment.min.js"></script>
+        <script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+        <script type="text/javascript">
+            $(function () {
 
+                $('#datetimepicker1').datetimepicker({
+                    format:'MM/DD/YYYY',
+                    pickTime:false,
+                    showToday: true,
+                });
+                
+                $('#timepicker').datetimepicker({
+                    format:'HH:mm:ss',
+                    pickDate:false,
+                    pickTime: true,                
+                    useMinutes: true,               
+                    useSeconds: true,
+                });
+            });
+        </script>
     </h:body>
 </html>
 

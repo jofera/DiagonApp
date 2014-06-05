@@ -5,3 +5,4 @@
 /DiagonJSF-ejb/dist/
 /DiagonJSF-war/dist/
 /DiagonJSF-ejb/nbproject/private/
+*.class
