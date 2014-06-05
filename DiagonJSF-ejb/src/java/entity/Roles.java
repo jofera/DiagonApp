@@ -4,60 +4,51 @@
  */
 package entity;
 
+import entity.Rol;
+import entity.Usuario;
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author user
+ * @author Gonzalo
  */
 @Entity
-@Table(name = "rol")
+@Table(name = "roles")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Rol.findAll", query = "SELECT r FROM Rol r"),
-    @NamedQuery(name = "Rol.findById", query = "SELECT r FROM Rol r WHERE r.id = :id"),
-    @NamedQuery(name = "Rol.findByNombre", query = "SELECT r FROM Rol r WHERE r.nombre = :nombre")})
-public class Rol implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRol")
-    private Collection<Roles> rolesCollection;
+    @NamedQuery(name = "Roles.findAll", query = "SELECT r FROM Roles r"),
+    @NamedQuery(name = "Roles.findById", query = "SELECT r FROM Roles r WHERE r.id = :id")})
+public class Roles implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "nombre")
-    private String nombre;
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Usuario idUsuario;
+    @JoinColumn(name = "id_rol", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Rol idRol;
 
-    public Rol() {
+    public Roles() {
     }
 
-    public Rol(Integer id) {
+    public Roles(Integer id) {
         this.id = id;
-    }
-
-    public Rol(Integer id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
     }
 
     public Integer getId() {
@@ -68,12 +59,20 @@ public class Rol implements Serializable {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public Usuario getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setIdUsuario(Usuario idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public Rol getIdRol() {
+        return idRol;
+    }
+
+    public void setIdRol(Rol idRol) {
+        this.idRol = idRol;
     }
 
     @Override
@@ -86,10 +85,10 @@ public class Rol implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Rol)) {
+        if (!(object instanceof Roles)) {
             return false;
         }
-        Rol other = (Rol) object;
+        Roles other = (Roles) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -98,16 +97,7 @@ public class Rol implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Rol[ id=" + id + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Roles> getRolesCollection() {
-        return rolesCollection;
-    }
-
-    public void setRolesCollection(Collection<Roles> rolesCollection) {
-        this.rolesCollection = rolesCollection;
+        return "dao.Roles[ id=" + id + " ]";
     }
     
 }

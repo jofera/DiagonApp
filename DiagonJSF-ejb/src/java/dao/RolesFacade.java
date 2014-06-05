@@ -4,7 +4,9 @@
  */
 package dao;
 
-import entity.Usuario;
+import entity.Rol;
+import entity.Roles;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -15,7 +17,7 @@ import javax.persistence.PersistenceContext;
  * @author Gonzalo
  */
 @Stateless
-public class UsuarioFacade extends AbstractFacade<Usuario> {
+public class RolesFacade extends AbstractFacade<Roles> {
     @PersistenceContext(unitName = "DiagonJSF-ejbPU")
     private EntityManager em;
 
@@ -24,13 +26,13 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         return em;
     }
 
-    public UsuarioFacade() {
-        super(Usuario.class);
+    public RolesFacade() {
+        super(Roles.class);
     }
-    
-    public Usuario findUsuarioByDNI(String dni){
-        List<Usuario> listaUsuarios = em.createNamedQuery("Usuario.findByDni").setParameter("dni", dni).getResultList();
-        return listaUsuarios.isEmpty()?null: listaUsuarios.get(0);
+    /*** Lista de roles del usuario. FALTA IMPLEMENTAR PORQUE HAY QUE TOCAR ENTIDAD ***/
+    public List<Rol> getUserRolList(int user){
+        List<Rol> listaRoles = new ArrayList<Rol>();
+        return listaRoles;
     }
     
 }
