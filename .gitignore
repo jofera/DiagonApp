@@ -14,6 +14,3 @@
 /DiagonJSF-ejb/dist/
 
 *.class
-
-
- rm -rf ./DgnSF-war/nbproject/private/ ./DgnSF-war/build.xml ./DgnSF-war/build/ ./DgnSF-war/dist/ ./DgnSF-ejb/nbproject/private/ ./DgnSF-ejb/build.xml ./DgnSF-ejb/build/ ./DgnSF-ejb/dist/
