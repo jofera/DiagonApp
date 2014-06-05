@@ -31,7 +31,7 @@ public class CitasBean {
     private CitaFacade citaFacade;
     
 
-    private Cita nuevaCita;
+    private Cita nuevaCita, editarCita;
     private List<Medico> listaMedicos;
     private List<Usuario> listaUsuarios;
     private List<Cita> listaCitas;
@@ -47,6 +47,7 @@ public class CitasBean {
     @PostConstruct
     public void Init(){
         nuevaCita = new Cita();
+        editarCita = new Cita();
         listaMedicos = medicoFacade.findAll();
         listaUsuarios = usuarioFacade.findAll();
         listaCitas = citaFacade.findAll();
@@ -85,10 +86,12 @@ public class CitasBean {
         this.listaCitas = listaCitas;
     }
 
-    public void crearCita(){
+    public String crearCita(){
         nuevaCita.setIdMedico(medicoFacade.find(medico));
         nuevaCita.setIdUsuario(usuarioFacade.find(usuario));
         citaFacade.create(nuevaCita);
+        listaCitas = citaFacade.findAll();
+        return "listarCitas.jsf";
     }
 
     public UsuarioFacade getUsuarioFacade() {
@@ -135,5 +138,27 @@ public class CitasBean {
         citaFacade.remove(citaFacade.find(c));
         listaCitas= citaFacade.findAll();
     }
+    public String editRedirect(int id){
+        editarCita = citaFacade.find(id);
+        usuario = editarCita.getIdUsuario().getId();
+        medico = editarCita.getIdMedico().getId();
+        return "editarCita.jsf";
+    }
+
+    public Cita getEditarCita() {
+        return editarCita;
+    }
+
+    public void setEditarCita(Cita editarCita) {
+        this.editarCita = editarCita;
+    }
     
+    public String editarCita(){
+        System.out.println(editarCita.getId());
+        editarCita.setIdMedico(medicoFacade.find(medico));
+        editarCita.setIdUsuario(usuarioFacade.find(usuario));
+        citaFacade.edit(editarCita);
+        listaCitas = citaFacade.findAll();
+        return "listarCitas.jsf";
+    }
 }
