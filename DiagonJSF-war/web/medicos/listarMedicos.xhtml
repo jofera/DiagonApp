@@ -5,7 +5,10 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Listado de médicos</title>
-        <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />    
+        <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />
+        <f:metadata>
+            <f:event listener="#{authBean.checkUserSession()}" type="preRenderView" />
+        </f:metadata>
     </h:head>
     <h:body class="container">
         <f:view>

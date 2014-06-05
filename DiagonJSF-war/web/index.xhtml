@@ -1,14 +1,19 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Aplicación Diagón</title>
-        <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />    
+        <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+        <f:metadata>
+            <f:event listener="#{authBean.checkUserSession()}" type="preRenderView" />
+        </f:metadata>
     </h:head>
     <h:body class="container">
         <h:form>
             <h1><h:outputText value="Bienvenido a la aplicación Diagón: "/></h1><br/>
+            <h2><h:outputText value="Bienvenido, #{authBean.logedUserName}"/></h2>
             <h:panelGrid columns="2" style="width: 600px">
                 <h:column> 
                     <div class="panel panel-info" style="margin: 5px">
