@@ -1,8 +1,19 @@
-/dist/
 /build/
+/dist/
+
+/nbproject/private/
+
+/DiagonJSF-war/nbproject/private/
+/DiagonJSF-war/build.xml
 /DiagonJSF-war/build/
+/DiagonJSF-war/dist/
+
+/DiagonJSF-ejb/nbproject/private/
+/DiagonJSF-ejb/build.xml
 /DiagonJSF-ejb/build/
 /DiagonJSF-ejb/dist/
-/DiagonJSF-war/dist/
-/DiagonJSF-ejb/nbproject/private/
+
 *.class
+
+
+ rm -rf ./DgnSF-war/nbproject/private/ ./DgnSF-war/build.xml ./DgnSF-war/build/ ./DgnSF-war/dist/ ./DgnSF-ejb/nbproject/private/ ./DgnSF-ejb/build.xml ./DgnSF-ejb/build/ ./DgnSF-ejb/dist/

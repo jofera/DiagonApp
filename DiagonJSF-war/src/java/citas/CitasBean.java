@@ -63,6 +63,7 @@ public class CitasBean {
     public List<Medico> getListaMedicos() {
         return listaMedicos;
     }
+    
 
     public void setListaMedicos(List<Medico> listaMedicos) {
         this.listaMedicos = listaMedicos;
@@ -130,5 +131,9 @@ public class CitasBean {
         this.usuario = usuario;
     }
     
+    public void borrarCita(int c){
+        citaFacade.remove(citaFacade.find(c));
+        listaCitas= citaFacade.findAll();
+    }
     
 }
