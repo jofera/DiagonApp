@@ -2,16 +2,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Aplicación Diagón</title>
+    <title>Aplicación Diagón</title>
         <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <f:metadata>
+            <f:event listener="#{authBean.checkUserIsMedico()}" type="preRenderView" />
+        </f:metadata>
     </h:head>
     <h:body class="container">
+        <ui:include src="includes/header.xhtml"/>  
         <h:form>
-            <h1><h:outputText value="Bienvenido a la aplicación Diagón: "/></h1><br/>
-            <h2><h:outputText value="Bienvenido, #{authBean.logedUserName} tu rol es #{authBean.logedUserRol}"/></h2>
-            <h:panelGrid columns="2" style="width: 600px">
+            <h:panelGrid columns="2" style="width: 500px">
                 <h:column> 
                     <div class="panel panel-info" style="margin: 5px">
                   <div class="panel-heading">
@@ -31,28 +34,6 @@
                     <div class="panel-body">
                        <a href="citas/crearCita.jsf">Crear Citas</a><br/>
                        <a href="citas/listarCitas.jsf">Listar Citas</a>
-                    </div>  
-                   </div>  
-               </h:column>
-               <h:column>
-                  <div class="panel panel-info" style="margin: 5px">
-                    <div class="panel-heading">
-                      <h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> Usuarios:</h3>
-                    </div>
-                    <div class="panel-body">
-                       <a href="usuarios/crearUsuario.jsf">Crear Usuario</a><br/>
-                       <a href="usuarios/listarUsuarios.jsf">Listar Usuarios</a>
-                    </div>  
-                   </div>  
-               </h:column> 
-                 <h:column>
-                  <div class="panel panel-info" style="margin: 5px">
-                    <div class="panel-heading">
-                      <h3 class="panel-title"><span class="glyphicon glyphicon-plus"></span> Personal sanitario:</h3>
-                    </div>
-                    <div class="panel-body">
-                       <a href="medicos/crearMedico.jsf">Crear un medico</a><br/>
-                       <a href="medicos/listarMedicos.jsf">Listar medicos</a>
                     </div>  
                    </div>  
                </h:column> 

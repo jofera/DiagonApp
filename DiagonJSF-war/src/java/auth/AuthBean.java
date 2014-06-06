@@ -40,19 +40,30 @@ public class AuthBean {
         FacesContext context=FacesContext.getCurrentInstance();
         String relativePath = context.getExternalContext().getRequestContextPath();
         Usuario user;
+        String goTo;
         if(!username.isEmpty() && !password.isEmpty()){
             user = usuarioFacade.findUsuarioByDNI(username);
             if(user != null && user.getPassword().equals(password)){
                 /*** El login es correcto, doy acceso ***/
-                if(medicoFacade.findUsuarioByDNI(user.getId()) != null)
+                if(medicoFacade.findUsuarioByDNI(user.getId()) != null){
                     facesContext.getExternalContext().getSessionMap().put("userRol", "medico");
-                else
+                    goTo = "/indexMedico.jsf";
+                }else{
                     facesContext.getExternalContext().getSessionMap().put("userRol", "paciente");
+                    goTo = "/indexPaciente.jsf";
+                }
                 facesContext.getExternalContext().getSessionMap().put("userName", username);
-                context.getExternalContext().redirect(relativePath + "/index.jsf");
+                context.getExternalContext().redirect(relativePath + goTo);
             }
         }
         context.getExternalContext().redirect(relativePath + "/login.jsf");
+    }
+    
+    public void logout() throws IOException{
+         FacesContext context=FacesContext.getCurrentInstance();
+         facesContext.getExternalContext().invalidateSession();
+         String relativePath = context.getExternalContext().getRequestContextPath();
+         context.getExternalContext().redirect(relativePath + "/login.jsf");
     }
     
     /*** Devuelve una instancia del usuario logeado ***/

@@ -20,7 +20,7 @@
                             </h:panelGroup>
                             <h:panelGroup layout="block" class="form-group">
                                 <h:outputLabel value="Contraseña" for="password" />
-                                <h:inputText id="password" value="#{authBean.password}" class="form-control" style="border-radius:0px" title="Contraseña" required="true" requiredMessage="El campo contraseña es obligatorio." pt:placeholder="Introduzca su contraseña" />
+                                <h:inputSecret id="password" value="#{authBean.password}" class="form-control" style="border-radius:0px" title="Contraseña" required="true" requiredMessage="El campo contraseña es obligatorio." pt:placeholder="Introduzca su contraseña" />
                             </h:panelGroup>
                             <h:commandButton value="Entrar " class="btn btn-success" action="#{authBean.Login()}"/>
                         </h:form>
