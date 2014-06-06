@@ -7,13 +7,13 @@
         <title>Aplicación Diagón</title>
         <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
         <f:metadata>
-            <f:event listener="#{authBean.checkUserSession()}" type="preRenderView" />
+            <f:event listener="#{authBean.checkUserIsMedico()}" type="preRenderView" />
         </f:metadata>
     </h:head>
     <h:body class="container">
         <h:form>
             <h1><h:outputText value="Bienvenido a la aplicación Diagón: "/></h1><br/>
-            <h2><h:outputText value="Bienvenido, #{authBean.logedUserName}"/></h2>
+            <h2><h:outputText value="Bienvenido, #{authBean.logedUserName} tu rol es #{authBean.logedUserRol}"/></h2>
             <h:panelGrid columns="2" style="width: 600px">
                 <h:column> 
                     <div class="panel panel-info" style="margin: 5px">

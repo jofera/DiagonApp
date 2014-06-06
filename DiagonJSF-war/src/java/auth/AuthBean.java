@@ -4,12 +4,14 @@
  */
 package auth;
 
+import dao.MedicoFacade;
 import entity.Usuario;
 import dao.UsuarioFacade;
 import java.io.IOException;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,6 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 @Named(value = "authBean")
 @RequestScoped
 public class AuthBean {
+    @EJB
+    private MedicoFacade medicoFacade;
     @EJB
     private UsuarioFacade usuarioFacade;
     private String username, password;
@@ -34,13 +38,16 @@ public class AuthBean {
     /*** Funcion login de usuario a partir de DNI y Contraseña ***/
     public void Login() throws IOException{
         FacesContext context=FacesContext.getCurrentInstance();
-        String relativePath = "";
-        relativePath = context.getExternalContext().getRequestContextPath();
+        String relativePath = context.getExternalContext().getRequestContextPath();
         Usuario user;
         if(!username.isEmpty() && !password.isEmpty()){
             user = usuarioFacade.findUsuarioByDNI(username);
             if(user != null && user.getPassword().equals(password)){
                 /*** El login es correcto, doy acceso ***/
+                if(medicoFacade.findUsuarioByDNI(user.getId()) != null)
+                    facesContext.getExternalContext().getSessionMap().put("userRol", "medico");
+                else
+                    facesContext.getExternalContext().getSessionMap().put("userRol", "paciente");
                 facesContext.getExternalContext().getSessionMap().put("userName", username);
                 context.getExternalContext().redirect(relativePath + "/index.jsf");
             }
@@ -66,12 +73,42 @@ public class AuthBean {
         return fullname;
     }
     
+    /*** Devuelve el rol del usuario conectado al sistema ***/
+    public String getLogedUserRol(){
+        this.facesContext = FacesContext.getCurrentInstance();
+        HttpServletRequest httpServletRequest = (HttpServletRequest) facesContext.getExternalContext().getRequest();
+        String userRol = (String) httpServletRequest.getSession().getAttribute("userRol");
+        return userRol;
+    }
+    
     /*** Comprueba si el usuario está logeado, si no lo manda al login form ***/
     public void checkUserSession() throws IOException{
         FacesContext context=FacesContext.getCurrentInstance();
         if(!isUserLoged())
             context.getExternalContext().redirect("login.jsf");
             
+    }
+    
+    /*** Comprueba si el usuario está logeado como medico ***/
+    public void checkUserIsMedico() throws IOException{
+        this.checkUserSession();
+        FacesContext context=FacesContext.getCurrentInstance();
+        ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) context.getApplication().getNavigationHandler();
+        HttpServletRequest httpServletRequest = (HttpServletRequest) facesContext.getExternalContext().getRequest();
+        String userRol = (String) httpServletRequest.getSession().getAttribute("userRol");
+        if(!userRol.equals("medico"))
+		nav.performNavigation("error/access-denied");
+    }
+    
+    /*** Comprueba si el usuario está logeado como paciente ***/
+    public void checkUserIsPaciente() throws IOException{
+        this.checkUserSession();
+        FacesContext context=FacesContext.getCurrentInstance();
+        ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) context.getApplication().getNavigationHandler();
+        HttpServletRequest httpServletRequest = (HttpServletRequest) facesContext.getExternalContext().getRequest();
+        String userRol = (String) httpServletRequest.getSession().getAttribute("userRol");
+        if(!userRol.equals("paciente"))
+		nav.performNavigation("error/access-denied");
     }
     
     public Boolean isUserLoged(){
