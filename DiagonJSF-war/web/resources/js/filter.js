@@ -1,9 +1,12 @@
 $(document).ready(function(){
+    // Truco para añadir class filters al table head
+    $('table thead tr:last-child').addClass('filters');
+    
     $('.filterable .btn-filter').click(function(){
         var $panel = $(this).parents('.filterable'),
         $filters = $panel.find('.filters input'),
         $tbody = $panel.find('.table tbody');
-        if ($filters.prop('disabled') === true) {
+        if ($filters.prop('disabled') == true) {
             $filters.prop('disabled', false);
             $filters.first().focus();
         } else {
@@ -15,7 +18,7 @@ $(document).ready(function(){
 
     $('.filterable .filters input').keyup(function(e){
         var code = e.keyCode || e.which;
-        if (code === '9') return;
+        if (code == '9') return;
         var $input = $(this),
         inputContent = $input.val().toLowerCase(),
         $panel = $input.parents('.filterable'),
