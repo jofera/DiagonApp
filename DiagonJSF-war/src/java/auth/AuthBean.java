@@ -53,17 +53,17 @@ public class AuthBean {
                     goTo = "/indexPaciente.jsf";
                 }
                 facesContext.getExternalContext().getSessionMap().put("userName", username);
-                context.getExternalContext().redirect(relativePath + goTo);
+                context.getExternalContext().redirect("/DiagonJSF-war/" + goTo);
             }
         }
-        context.getExternalContext().redirect(relativePath + "/login.jsf");
+        context.getExternalContext().redirect("/DiagonJSF-war/login.jsf");
     }
     
     public void logout() throws IOException{
          FacesContext context=FacesContext.getCurrentInstance();
          facesContext.getExternalContext().invalidateSession();
          String relativePath = context.getExternalContext().getRequestContextPath();
-         context.getExternalContext().redirect(relativePath + "/login.jsf");
+         context.getExternalContext().redirect("/DiagonJSF-war/login.jsf");
     }
     
     /*** Devuelve una instancia del usuario logeado ***/
@@ -96,7 +96,7 @@ public class AuthBean {
     public void checkUserSession() throws IOException{
         FacesContext context=FacesContext.getCurrentInstance();
         if(!isUserLoged())
-            context.getExternalContext().redirect("login.jsf");
+            context.getExternalContext().redirect("/DiagonJSF-war/login.jsf");
             
     }
     
