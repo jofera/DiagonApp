@@ -6,14 +6,21 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Listado de tratamientos</title>    
-        <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />    
-    </h:head>
-    <h:body class="container">
-        <ui:include src="../includes/header.xhtml"/>
+        <h:outputStylesheet library="css" name="bootstrap.min.css" /> 
+        <f:metadata>
+            <f:event listener="#{authBean.checkUserSession()}" type="preRenderView" />
+        </f:metadata>
+    </h:head>   
+    <h:body>
+         <h:panelGrid class="page-header">
+            <ui:include src="../includes/header.xhtml"/>    
+         </h:panelGrid>
+        <h:panelGrid class="container">  
         <f:view >
-            <h:form>
-                <h1><h:outputText value="Lista de tratamientos"/></h1>
-                <h:dataTable value="#{tratamientoBean.listaTratamientos}" var="item" class="table">
+             <h:form> 
+                 <h3><h:outputText value="Lista de tratamientos "/>
+                 <h:outputText class="badge" value="#{tratamientoBean.tamLista}"></h:outputText></h3> 
+                 <h:dataTable value="#{tratamientoBean.listaTratamientos}" var="item" class="table">
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Id"/>
@@ -67,10 +74,11 @@
                             </h:panelGroup>
                         </h:panelGroup>
                     </h:column>
-                </h:dataTable>
-                <a href="../index.jsf" class="btn btn-info" > <span class="glyphicon glyphicon-home"></span>  Inicio</a>
+                </h:dataTable>               
             </h:form>
+             <a href="../indexMedico.jsf" class="btn btn-info" > <span class="glyphicon glyphicon-home"></span>  Inicio</a>
         </f:view>
+        </h:panelGrid>
     </h:body>
 </html>
 

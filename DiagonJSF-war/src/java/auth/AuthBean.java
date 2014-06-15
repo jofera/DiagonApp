@@ -56,14 +56,14 @@ public class AuthBean {
                 context.getExternalContext().redirect("/DiagonJSF-war/" + goTo);
             }
         }
-        context.getExternalContext().redirect("/DiagonJSF-war/login.jsf");
+        context.getExternalContext().redirect("/DiagonJSF-war/index.jsf");
     }
     
     public void logout() throws IOException{
          FacesContext context=FacesContext.getCurrentInstance();
          facesContext.getExternalContext().invalidateSession();
          String relativePath = context.getExternalContext().getRequestContextPath();
-         context.getExternalContext().redirect("/DiagonJSF-war/login.jsf");
+         context.getExternalContext().redirect("/DiagonJSF-war/index.jsf");
     }
     
     /*** Devuelve una instancia del usuario logeado ***/
@@ -96,7 +96,7 @@ public class AuthBean {
     public void checkUserSession() throws IOException{
         FacesContext context=FacesContext.getCurrentInstance();
         if(!isUserLoged())
-            context.getExternalContext().redirect("/DiagonJSF-war/login.jsf");
+            context.getExternalContext().redirect("/DiagonJSF-war/index.jsf");
             
     }
     

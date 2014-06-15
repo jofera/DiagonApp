@@ -29,6 +29,7 @@ public class tratamientoBean {
     //Recoger del form los valores
     private int idMedico;
     private int idPaciente;    
+    private int tamLista;
        
     private Medico medico;
     private Usuario paciente;
@@ -51,6 +52,7 @@ public class tratamientoBean {
          listaUsuarios = usuarioFacade.findAll();
          tratamientoNuevo = new Tratamiento();
          tratamientoActual = new Tratamiento();
+         tamLista = listaTratamientos.size();
     }
 
     //Getter and setter de los tratamientos y usuarios
@@ -127,7 +129,15 @@ public class tratamientoBean {
     public void setListaMedicos(List<Medico> lista) {
         this.listaMedicos = lista;
     }
-    
+
+    public int getTamLista() {
+        return tamLista;
+    }
+
+    public void setTamLista(int tam) {
+        this.tamLista = tam;
+    }
+        
     public String crearTratamiento() {
         //Con los ids recogidos del formulario buscamos el medico y el usuario correspondiente.        
         medico = medicoFacade.find(idMedico);
@@ -161,6 +171,7 @@ public class tratamientoBean {
         
         //Volvemos a buscar todos los tratamientos para que se actualice la lista.
         setListaTratamientos(tratamientoFacade.findAll());
+        tamLista = listaTratamientos.size();
         
         //Mostramos en pantalla la lista de tratamientos.
         return goToListarTratamientos();
@@ -179,7 +190,9 @@ public class tratamientoBean {
     public void borrarTratamiento(int id){
         tratamientoFacade.remove(tratamientoFacade.find(id));
         setListaTratamientos(tratamientoFacade.findAll());
+        tamLista = listaTratamientos.size();
     }  
+    
 }
 
 

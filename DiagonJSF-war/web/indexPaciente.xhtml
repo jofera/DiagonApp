@@ -12,8 +12,10 @@
         </f:metadata>
     </h:head>
     <h:body>
-        <h:panelGroup layout="block" class="container">
-        <ui:include src="includes/header.xhtml"/>
+        <h:panelGrid class="page-header">
+            <ui:include src="includes/header.xhtml"/>    
+        </h:panelGrid>
+        <h:panelGrid class="container"> 
         <h:form>
             <h:panelGrid columns="2" style="width: 600px">                
                <h:column>
@@ -22,8 +24,8 @@
                       <h3 class="panel-title"><span class="glyphicon glyphicon-earphone"></span>Datos personales:</h3>
                     </div>
                     <div class="panel-body">
-                       <a href="paciente/listarDatosPersonales.jsf">Consultar datos personales</a><br/>
-                       <a href="paciente/editarDatosPersonales.jsf">Editar datos personales</a>
+                       <a href="#">Consultar datos personales</a><br/>
+                       <a href="#">Editar datos personales</a>
                     </div>  
                    </div>  
                </h:column>
@@ -33,7 +35,7 @@
                       <h3 class="panel-title"><span class="glyphicon glyphicon-earphone"></span>Citas: </h3>
                     </div>
                     <div class="panel-body">
-                       <a href="paciente/listarCitasPaciente.jsf">Consultar citas.</a><br/>
+                       <a href="#">Consultar citas.</a><br/>
                     </div>  
                    </div>  
                </h:column>
@@ -43,13 +45,13 @@
                       <h3 class="panel-title"><span class="glyphicon glyphicon-earphone"></span>Tratamientos: </h3>
                     </div>
                     <div class="panel-body">
-                       <a href="paciente/listarTratamientosPaciente.jsf">Consultar historial de tratamientos.</a><br/>
+                       <a href="#">Consultar historial de tratamientos.</a><br/>
                     </div>  
                    </div>  
                </h:column>
             </h:panelGrid>                      
           </h:form>
-        </h:panelGroup>
+        </h:panelGrid>
     </h:body>
 </html>
 
