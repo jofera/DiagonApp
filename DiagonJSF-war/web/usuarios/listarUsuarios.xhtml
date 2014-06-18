@@ -70,12 +70,6 @@
                             <h:outputText value="Acción"/>
                         </f:facet>
                         <h:commandButton value="Editar" class="btn btn-info" action="#{usuarioBean.botonModificarUsuario(item.id)}"/>
-
-                            &nbsp;&nbsp;
-                           
-                            <h:commandButton value="Eliminar" class="btn btn-danger" action="#{usuarioBean.borrarUsuario(item.id)}" onclick="if (!confirm('¿Seguro que desea eliminiar el usuario?')) return false">
-                           <!-- <f:ajax event="click" execute="confirmacion"/>-->
-                        </h:commandButton>
                     </h:column>
                 </h:dataTable>
                 <a href="../indexMedico.jsf" class="btn btn-info" > <span class="glyphicon glyphicon-home"></span>  Inicio</a>

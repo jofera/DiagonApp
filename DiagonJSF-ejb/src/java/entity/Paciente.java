@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author user
+ * @author Gonzalo
  */
 @Entity
 @Table(name = "paciente")
@@ -30,7 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Paciente.findAll", query = "SELECT p FROM Paciente p"),
     @NamedQuery(name = "Paciente.findById", query = "SELECT p FROM Paciente p WHERE p.id = :id"),
-    @NamedQuery(name = "Paciente.findByNuss", query = "SELECT p FROM Paciente p WHERE p.nuss = :nuss")})
+    @NamedQuery(name = "Paciente.findByNuss", query = "SELECT p FROM Paciente p WHERE p.nuss = :nuss"),
+    @NamedQuery(name = "Paciente.findByActivo", query = "SELECT p FROM Paciente p WHERE p.activo = :activo")})
 public class Paciente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -42,12 +43,16 @@ public class Paciente implements Serializable {
     @NotNull
     @Column(name = "nuss")
     private int nuss;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "activo")
+    private boolean activo;
     @JoinColumn(name = "id_usuario", referencedColumnName = "id")
     @OneToOne(optional = false)
     private Usuario idUsuario;
     @JoinColumn(name = "id_medico", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Usuario idMedico;
+    private Medico idMedico;
 
     public Paciente() {
     }
@@ -56,9 +61,10 @@ public class Paciente implements Serializable {
         this.id = id;
     }
 
-    public Paciente(Integer id, int nuss) {
+    public Paciente(Integer id, int nuss, boolean activo) {
         this.id = id;
         this.nuss = nuss;
+        this.activo = activo;
     }
 
     public Integer getId() {
@@ -77,6 +83,14 @@ public class Paciente implements Serializable {
         this.nuss = nuss;
     }
 
+    public boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
     public Usuario getIdUsuario() {
         return idUsuario;
     }
@@ -85,11 +99,11 @@ public class Paciente implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public Usuario getIdMedico() {
+    public Medico getIdMedico() {
         return idMedico;
     }
 
-    public void setIdMedico(Usuario idMedico) {
+    public void setIdMedico(Medico idMedico) {
         this.idMedico = idMedico;
     }
 

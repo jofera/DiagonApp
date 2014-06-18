@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author user
+ * @author Gonzalo
  */
 @Entity
 @Table(name = "medico")
@@ -36,7 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Medico.findById", query = "SELECT m FROM Medico m WHERE m.id = :id"),
     @NamedQuery(name = "Medico.findByUsuarioId", query = "SELECT m FROM Medico m WHERE m.idUsuario.id = :idUsuario"),
     @NamedQuery(name = "Medico.findByConsulta", query = "SELECT m FROM Medico m WHERE m.consulta = :consulta"),
-    @NamedQuery(name = "Medico.findByTelefono", query = "SELECT m FROM Medico m WHERE m.telefono = :telefono")})
+    @NamedQuery(name = "Medico.findByTelefono", query = "SELECT m FROM Medico m WHERE m.telefono = :telefono"),
+    @NamedQuery(name = "Medico.findByActivo", query = "SELECT m FROM Medico m WHERE m.activo = :activo")})
 public class Medico implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -54,6 +55,12 @@ public class Medico implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "telefono")
     private String telefono;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "activo")
+    private boolean activo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMedico")
+    private Collection<Paciente> pacienteCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMedico")
     private Collection<Cita> citaCollection;
     @JoinColumn(name = "id_usuario", referencedColumnName = "id")
@@ -72,10 +79,11 @@ public class Medico implements Serializable {
         this.id = id;
     }
 
-    public Medico(Integer id, String consulta, String telefono) {
+    public Medico(Integer id, String consulta, String telefono, boolean activo) {
         this.id = id;
         this.consulta = consulta;
         this.telefono = telefono;
+        this.activo = activo;
     }
 
     public Integer getId() {
@@ -100,6 +108,23 @@ public class Medico implements Serializable {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
+    @XmlTransient
+    public Collection<Paciente> getPacienteCollection() {
+        return pacienteCollection;
+    }
+
+    public void setPacienteCollection(Collection<Paciente> pacienteCollection) {
+        this.pacienteCollection = pacienteCollection;
     }
 
     @XmlTransient

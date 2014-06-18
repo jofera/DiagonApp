@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author user
+ * @author Gonzalo
  */
 @Entity
 @Table(name = "cita")
@@ -35,7 +35,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Cita.findById", query = "SELECT c FROM Cita c WHERE c.id = :id"),
     @NamedQuery(name = "Cita.findByConsulta", query = "SELECT c FROM Cita c WHERE c.consulta = :consulta"),
     @NamedQuery(name = "Cita.findByFecha", query = "SELECT c FROM Cita c WHERE c.fecha = :fecha"),
-    @NamedQuery(name = "Cita.findByHora", query = "SELECT c FROM Cita c WHERE c.hora = :hora")})
+    @NamedQuery(name = "Cita.findByHora", query = "SELECT c FROM Cita c WHERE c.hora = :hora"),
+    @NamedQuery(name = "Cita.findByEstado", query = "SELECT c FROM Cita c WHERE c.estado = :estado")})
 public class Cita implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -56,6 +57,10 @@ public class Cita implements Serializable {
     @Column(name = "hora")
     @Temporal(TemporalType.TIME)
     private Date hora;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "estado")
+    private int estado;
     @JoinColumn(name = "id_usuario", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Usuario idUsuario;
@@ -70,10 +75,11 @@ public class Cita implements Serializable {
         this.id = id;
     }
 
-    public Cita(Integer id, String consulta, Date fecha) {
+    public Cita(Integer id, String consulta, Date fecha, int estado) {
         this.id = id;
         this.consulta = consulta;
         this.fecha = fecha;
+        this.estado = estado;
     }
 
     public Integer getId() {
@@ -106,6 +112,14 @@ public class Cita implements Serializable {
 
     public void setHora(Date hora) {
         this.hora = hora;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
 
     public Usuario getIdUsuario() {

@@ -83,8 +83,6 @@ public class Usuario implements Serializable {
     private Date fechaNacimiento;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "idUsuario")
     private Paciente paciente;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMedico")
-    private Collection<Paciente> pacienteCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
     private Collection<Cita> citaCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
@@ -177,15 +175,6 @@ public class Usuario implements Serializable {
 
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
-    }
-
-    @XmlTransient
-    public Collection<Paciente> getPacienteCollection() {
-        return pacienteCollection;
-    }
-
-    public void setPacienteCollection(Collection<Paciente> pacienteCollection) {
-        this.pacienteCollection = pacienteCollection;
     }
 
     @XmlTransient
