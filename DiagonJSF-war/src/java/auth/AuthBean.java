@@ -30,7 +30,6 @@ public class AuthBean {
     private MedicoFacade medicoFacade;
     @EJB
     private UsuarioFacade usuarioFacade;
-    
     private String username, password;
     FacesContext facesContext = FacesContext.getCurrentInstance();
 
@@ -45,26 +44,21 @@ public class AuthBean {
         FacesContext context=FacesContext.getCurrentInstance();
         String relativePath = context.getExternalContext().getRequestContextPath();
         Usuario user;
-        Admin admin;
         String goTo;
         if(!username.isEmpty() && !password.isEmpty()){
             user = usuarioFacade.findUsuarioByDNI(username);
             if(user != null && user.getPassword().equals(password)){
                 /*** El login es correcto, doy acceso ***/
-                if(medicoFacade.findUsuarioByDNI(user.getId()) != null){
+                Admin admin = adminFacade.findAdminByIdUsuario(user.getId());
+                if(admin != null){
+                    facesContext.getExternalContext().getSessionMap().put("userRol", "admin");                  
+                }else if(medicoFacade.findUsuarioByDNI(user.getId()) != null){
                     facesContext.getExternalContext().getSessionMap().put("userRol", "medico");                  
                 }else{
                     facesContext.getExternalContext().getSessionMap().put("userRol", "paciente");                    
                 }
                 facesContext.getExternalContext().getSessionMap().put("userName", username);
                 context.getExternalContext().redirect("/DiagonJSF-war/index.jsf");
-            }else{
-                admin = adminFacade.findAdminByUsername(username);
-             /* CAMBIARRRRRRRRRRRRRRRRR  
-              * if(password.equals(admin.getPassword())){
-                    facesContext.getExternalContext().getSessionMap().put("userRol", "admin");
-                    facesContext.getExternalContext().getSessionMap().put("userName", username);
-                }*/
             }
         }
         context.getExternalContext().redirect("/DiagonJSF-war/login.jsf");
@@ -84,6 +78,15 @@ public class AuthBean {
         String userName = (String) httpServletRequest.getSession().getAttribute("userName");
         Usuario user = usuarioFacade.findUsuarioByDNI(userName);
         return user;
+    }
+    
+    /*** Devuelve nombre y apellidos del usuario logeado ***/
+    public String getLogedUserName(){
+        String fullname = "";
+        Usuario user = this.getLogedUser();
+        if(user != null)
+            fullname = user.getNombre().concat(" ").concat(user.getApellidos());
+        return fullname;
     }
     
     /*** Devuelve el rol del usuario conectado al sistema ***/

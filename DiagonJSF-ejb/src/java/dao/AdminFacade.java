@@ -5,6 +5,7 @@
 package dao;
 
 import entity.Admin;
+import entity.Usuario;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -27,9 +28,9 @@ public class AdminFacade extends AbstractFacade<Admin> {
     public AdminFacade() {
         super(Admin.class);
     }
-    public Admin findAdminByUsername(String username){
-       List<Admin> listaAdmin = em.createNamedQuery("Admin.findByUsername").setParameter("username", username).getResultList();
-       return listaAdmin.isEmpty()?null: listaAdmin.get(0);
-   }
     
+    public Admin findAdminByIdUsuario(int user){
+        List<Admin> listaAdmin = em.createNamedQuery("Admin.findByUsuario").setParameter("usuario", user).getResultList();
+        return listaAdmin.isEmpty()?null: listaAdmin.get(0);
+    }    
 }
