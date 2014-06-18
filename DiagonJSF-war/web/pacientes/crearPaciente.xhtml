@@ -6,7 +6,10 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Pacientes</title>
-        <h:outputStylesheet library="css" name="bootstrap.min.css" />   
+        <h:outputStylesheet library="css" name="bootstrap.min.css" /> 
+        <f:metadata>
+        <f:event listener="#{authBean.checkUserSession()}" type="preRenderView" />
+    </f:metadata>
     </h:head>
     <h:body>
          <h:panelGrid class="page-header">
@@ -23,9 +26,13 @@
                     
                     <h:outputLabel value=""/><h:outputLabel value=""/>
                     
+                    <h:outputLabel value="Activo:" for="activo" />
+                    <h:inputText id="activo" value="#{pacienteBean.pacienteActual.activo}" title="Activo" required="true"/>
+                   
+                    <h:outputLabel value=""/><h:outputLabel value=""/>
+                     
                     <h:outputLabel value="IdUsuario:" for="idUsuario" />
                     <h:selectOneMenu id="idUsuario" class="form-control" value="#{pacienteBean.idUsuario}" title="IdUsuario" required="true">
-                        <!-- TODO: update below reference to list of available items-->
                         <f:selectItems value="#{pacienteBean.listaUsuarios}" var="v" itemLabel="#{v.nombre.concat(' ').concat(v.apellidos)}" itemValue="#{v.id}"/>
                     </h:selectOneMenu>
                     
@@ -33,7 +40,6 @@
                     
                     <h:outputLabel value="IdMedico:" for="idMedico" />
                     <h:selectOneMenu id="idMedico" class="form-control" value="#{pacienteBean.idMedico}" title="IdMedico" required="true">
-                        <!-- TODO: update below reference to list of available items-->
                         <f:selectItems value="#{pacienteBean.listaMedicos}" var="r" itemLabel="#{r.idUsuario.nombre.concat(' ').concat(r.idUsuario.apellidos)}" itemValue="#{r.id}"/>
                     </h:selectOneMenu>
                     

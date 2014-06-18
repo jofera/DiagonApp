@@ -6,7 +6,10 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Pacientes</title>
-        <h:outputStylesheet library="css" name="bootstrap.min.css" /> 
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <f:metadata>
+        <f:event listener="#{authBean.checkUserSession()}" type="preRenderView" />
+    </f:metadata>
     </h:head>
     <h:body>
          <h:panelGrid class="page-header">
@@ -15,7 +18,7 @@
          <h:panelGrid class="container" > 
         <f:view>
             <h:form>
-                 <h:inputHidden value ="#{pacienteBean.pacienteActual.id}"/>
+                
                 <h1><h:outputText value="Editar Paciente"/></h1>
                 <h:panelGrid columns="2" width="500px">
                     
@@ -30,22 +33,22 @@
                      <h:outputLabel value=""/><h:outputLabel value=""/>
                      
                     <h:outputLabel value="IdUsuario:" for="idUsuario" />
-                    <h:selectOneMenu id="idUsuario" value="#{pacienteBean.pacienteActual.idUsuario}" title="IdUsuario" required="true">
-                        <!-- TODO: update below reference to list of available items-->
+                    <h:selectOneMenu id="idUsuario" value="#{pacienteBean.idUsuario}" title="IdUsuario" required="true">
+                        
                         <f:selectItems value="#{pacienteBean.listaUsuarios}" var="v" itemLabel="#{v.nombre.concat(' ').concat(v.apellidos)}" itemValue="#{v.id}"/>
                     </h:selectOneMenu>
                     
                      <h:outputLabel value=""/><h:outputLabel value=""/>
                      
                     <h:outputLabel value="IdMedico:" for="idMedico" />
-                    <h:selectOneMenu id="idMedico" value="#{pacienteBean.pacienteActual.idMedico}" title="IdMedico" required="true">
-                        <!-- TODO: update below reference to list of available items-->
+                    <h:selectOneMenu id="idMedico" value="#{pacienteBean.idMedico}" title="IdMedico" required="true">
+                        
                         <f:selectItems value="#{pacienteBean.listaMedicos}" var="r" itemLabel="#{r.idUsuario.nombre.concat(' ').concat(r.idUsuario.apellidos)}" itemValue="#{r.id}"/>
                     </h:selectOneMenu>
                     
                      <h:outputLabel value=""/><h:outputLabel value=""/>
                      
-                     <h:commandButton value="Guardar Cambios" class="btn btn-success" action="#{pacienteBean.editarPaciente()}"/>
+                     <h:commandButton value="Guardar" class="btn btn-success" action="#{pacienteBean.editarPaciente(id)}"/>
                     <a href="listarPacientes.jsf"  class="btn btn-danger" > <span class="glyphicon glyphicon-remove"></span> Cancelar</a>
                 </h:panelGrid>
             </h:form>
