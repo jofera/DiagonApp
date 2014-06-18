@@ -46,14 +46,12 @@ public class AuthBean {
             if(user != null && user.getPassword().equals(password)){
                 /*** El login es correcto, doy acceso ***/
                 if(medicoFacade.findUsuarioByDNI(user.getId()) != null){
-                    facesContext.getExternalContext().getSessionMap().put("userRol", "medico");
-                    goTo = "/indexMedico.jsf";
+                    facesContext.getExternalContext().getSessionMap().put("userRol", "medico");                  
                 }else{
-                    facesContext.getExternalContext().getSessionMap().put("userRol", "paciente");
-                    goTo = "/indexPaciente.jsf";
+                    facesContext.getExternalContext().getSessionMap().put("userRol", "paciente");                    
                 }
                 facesContext.getExternalContext().getSessionMap().put("userName", username);
-                context.getExternalContext().redirect("/DiagonJSF-war/" + goTo);
+                context.getExternalContext().redirect("/DiagonJSF-war/index.jsf");
             }
         }
         context.getExternalContext().redirect("/DiagonJSF-war/index.jsf");
@@ -63,7 +61,7 @@ public class AuthBean {
          FacesContext context=FacesContext.getCurrentInstance();
          facesContext.getExternalContext().invalidateSession();
          String relativePath = context.getExternalContext().getRequestContextPath();
-         context.getExternalContext().redirect("/DiagonJSF-war/index.jsf");
+         context.getExternalContext().redirect("/DiagonJSF-war/login.jsf");
     }
     
     /*** Devuelve una instancia del usuario logeado ***/
@@ -142,5 +140,25 @@ public class AuthBean {
         this.password = password;
     }
     
-    
+    public boolean isMedico(){
+       boolean result=false;
+       if ("medico".equals(getLogedUserRol())){
+           result=true;
+       }
+        return result;
+    }
+    public boolean isPaciente(){
+       boolean result=false;
+       if ("paciente".equals(getLogedUserRol())){
+           result=true;
+       }
+        return result;
+    }
+    public boolean isAdmin(){
+       boolean result=false;
+       if ("admin".equals(getLogedUserRol())){
+           result=true;
+       }
+        return result;
+    }    
 }

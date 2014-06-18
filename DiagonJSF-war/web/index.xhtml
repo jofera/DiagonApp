@@ -5,29 +5,76 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-    <title>Aplicación Diagón</title>
+        <title>Aplicación Diagón</title>
         <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <f:metadata>
+            <f:event listener="#{authBean.isUserLoged()}" type="preRenderView" />
+        </f:metadata>
     </h:head>
     <h:body>
-        <h:panelGrid class="page-header">
-           <h:form>
-     <div class="navbar-wrapper">
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-          <div class="container">
-            <div class="navbar-header">
-              <h:outputText class="navbar-brand" value="Aplicación Diagón"/>
-            </div>
-            <div class="navbar-collapse collapse">                
-              <ul class="nav navbar-nav">               
-              </ul> 
-            </div>
-          </div>
-        </div>
-    </div>
-   </h:form>      
-        </h:panelGrid>
-        <h:panelGrid class="container"> 
-            <ui:include src="includes/login.xhtml"/>
+         <h:panelGrid class="page-header">
+            <ui:include src="includes/header.xhtml"/>    
+         </h:panelGrid>
+        <h:panelGrid class="container">  
+        <h:form>            
+            <h:panelGrid columns="2" style="width: 600px">
+                <h:column rendered="#{authBean.medico}"> 
+                    <div class="panel panel-info" style="margin: 5px">
+                  <div class="panel-heading">
+                      <h3 class="panel-title"><span class="glyphicon glyphicon-list-alt"></span> Tratamientos:</h3>
+                  </div>
+                  <div class="panel-body">
+                     <a href="tratamientos/crearTratamiento.jsf">Crear un tratamiento</a><br/>
+                     <a href="tratamientos/listarTratamientos.jsf">Listar Tratamientos</a>
+                  </div>  
+                  </div>    
+               </h:column>
+               <h:column rendered="#{authBean.medico}">
+                  <div class="panel panel-info" style="margin: 5px">
+                    <div class="panel-heading">
+                      <h3 class="panel-title"><span class="glyphicon glyphicon-earphone"></span> Citas:</h3>
+                    </div>
+                    <div class="panel-body">
+                       <a href="citas/crearCita.jsf">Crear Citas</a><br/>
+                       <a href="citas/listarCitas.jsf">Listar Citas</a>
+                    </div>  
+                   </div>  
+               </h:column>
+               <h:column rendered="#{authBean.admin}">
+                  <div class="panel panel-info" style="margin: 5px">
+                    <div class="panel-heading">
+                      <h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> Usuarios:</h3>
+                    </div>
+                    <div class="panel-body">
+                       <a href="usuarios/crearUsuario.jsf">Crear Usuario</a><br/>
+                       <a href="usuarios/listarUsuarios.jsf">Listar Usuarios</a>
+                    </div>  
+                   </div>  
+               </h:column> 
+                <h:column rendered="#{authBean.admin}">
+                  <div class="panel panel-info" style="margin: 5px">
+                    <div class="panel-heading">
+                      <h3 class="panel-title"><span class="glyphicon glyphicon-plus"></span> Personal sanitario:</h3>
+                    </div>
+                    <div class="panel-body">
+                       <a href="medicos/crearMedico.jsf">Crear un medico</a><br/>
+                       <a href="medicos/listarMedicos.jsf">Listar medicos</a>
+                    </div>  
+                   </div>  
+               </h:column> 
+               <h:column rendered="#{authBean.medico}">
+                  <div class="panel panel-info" style="margin: 5px">
+                    <div class="panel-heading">
+                      <h3 class="panel-title"><span class="glyphicon glyphicon-paperclip"></span> Datos clínicos:</h3>
+                    </div>
+                    <div class="panel-body">
+                       <a href="#">Crear Datos clínicos</a><br/>
+                       <a href="#">Listar Datos clínicos</a>
+                    </div>  
+                   </div>  
+               </h:column>  
+            </h:panelGrid>                      
+          </h:form>
         </h:panelGrid>
     </h:body>
 </html>
