@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-06-2014 a las 12:03:38
+-- Tiempo de generación: 18-06-2014 a las 14:01:08
 -- Versión del servidor: 5.5.36
 -- Versión de PHP: 5.4.27
 
@@ -19,6 +19,26 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `diagon`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `admin`
+--
+
+CREATE TABLE IF NOT EXISTS `admin` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` tinytext NOT NULL,
+  `password` tinytext NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `admin`
+--
+
+INSERT INTO `admin` (`id`, `username`, `password`) VALUES
+(1, 'admin', 'admin');
 
 -- --------------------------------------------------------
 
@@ -76,14 +96,15 @@ CREATE TABLE IF NOT EXISTS `medico` (
   PRIMARY KEY (`id`),
   KEY `id_usuario` (`id_usuario`,`id_especialidad`),
   KEY `id_especialidad` (`id_especialidad`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=8 ;
 
 --
 -- Volcado de datos para la tabla `medico`
 --
 
 INSERT INTO `medico` (`id`, `id_usuario`, `id_especialidad`, `consulta`, `telefono`, `activo`) VALUES
-(6, 8, 3, '23', '876567897', 0);
+(6, 8, 3, '23', '876567897', 1),
+(7, 11, 5, '222', '22222', 1);
 
 -- --------------------------------------------------------
 
@@ -100,7 +121,14 @@ CREATE TABLE IF NOT EXISTS `paciente` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_usuario` (`id_usuario`),
   KEY `id_medico` (`id_medico`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `paciente`
+--
+
+INSERT INTO `paciente` (`id`, `id_usuario`, `nuss`, `id_medico`, `activo`) VALUES
+(1, 10, 11111, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -121,8 +149,10 @@ CREATE TABLE IF NOT EXISTS `rol` (
 --
 
 CREATE TABLE IF NOT EXISTS `roles` (
+  `id` int(11) NOT NULL,
   `id_rol` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
   KEY `id_rol` (`id_rol`,`id_usuario`),
   KEY `id_usuario` (`id_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
@@ -169,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `telefono` varchar(20) COLLATE latin1_spanish_ci DEFAULT NULL,
   `fecha_nacimiento` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=12 ;
 
 --
 -- Volcado de datos para la tabla `usuario`
@@ -177,7 +207,9 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 
 INSERT INTO `usuario` (`id`, `dni`, `password`, `nombre`, `apellidos`, `direccion`, `telefono`, `fecha_nacimiento`) VALUES
 (8, '44332233F', '1234', 'Marta', 'Lopez', 'C/Tupu', '675432345', '2000-06-02'),
-(9, '44556677K', '1234', 'Pepe', 'Ruiz', 'c/DiputaProject', '657543456', '1990-06-02');
+(9, '44556677K', '1234', 'Pepe', 'Ruiz', 'c/DiputaProject', '657543456', '1990-06-02'),
+(10, '1', '1', 'José', 'Moles García', 'C/ De prueba, 3', '951888888', '2014-06-10'),
+(11, '2', '2', 'Francisco', 'García Fernández', 'C/ Dirección de prueba, 8', '951888888', '2014-06-01');
 
 --
 -- Restricciones para tablas volcadas
