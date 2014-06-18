@@ -54,7 +54,7 @@ public class AuthBean {
                 context.getExternalContext().redirect("/DiagonJSF-war/index.jsf");
             }
         }
-        context.getExternalContext().redirect("/DiagonJSF-war/index.jsf");
+        context.getExternalContext().redirect("/DiagonJSF-war/login.jsf");
     }
     
     public void logout() throws IOException{
@@ -94,7 +94,7 @@ public class AuthBean {
     public void checkUserSession() throws IOException{
         FacesContext context=FacesContext.getCurrentInstance();
         if(!isUserLoged())
-            context.getExternalContext().redirect("/DiagonJSF-war/index.jsf");
+            context.getExternalContext().redirect("/DiagonJSF-war/login.jsf");
             
     }
     

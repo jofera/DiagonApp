@@ -8,7 +8,7 @@
         <title>Aplicación Diagón</title>
         <h:outputStylesheet library="css" name="bootstrap.min.css" />
         <f:metadata>
-            <f:event listener="#{authBean.isUserLoged()}" type="preRenderView" />
+            <f:event listener="#{authBean.checkUserSession()}" type="preRenderView" />
         </f:metadata>
     </h:head>
     <h:body>
