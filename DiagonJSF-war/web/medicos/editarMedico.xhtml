@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Editar Médico</title>
         <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />
@@ -11,8 +12,12 @@
         </f:metadata>
     </h:head>
     <h:body>
+        <h:panelGrid class="page-header">
+            <ui:include src="../includes/header.xhtml"/>    
+         </h:panelGrid>        
         <f:view>
-            <h:form class="container">
+            <h:panelGrid class="container"> 
+            <h:form>
                 <h1><h:outputText value="Editar Usuario"/></h1>
                 <h:panelGrid columns="2" width="500px">
                     <h:outputLabel value="" />
@@ -42,8 +47,8 @@
                     </h:commandLink>
                 </h:panelGrid>
             </h:form>
+          </h:panelGrid>
         </f:view>
-
     </h:body>
 </html>
 
