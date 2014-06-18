@@ -18,7 +18,7 @@
         <h:panelGrid class="container">  
         <h:form>            
             <h:panelGrid columns="2" style="width: 600px">
-                <h:column rendered="#{authBean.medico}"> 
+                <h:column rendered="#{authBean.medico || authBean.admin}"> 
                     <div class="panel panel-info" style="margin: 5px">
                   <div class="panel-heading">
                       <h3 class="panel-title"><span class="glyphicon glyphicon-list-alt"></span> Tratamientos:</h3>
@@ -29,7 +29,7 @@
                   </div>  
                   </div>    
                </h:column>
-               <h:column rendered="#{authBean.medico}">
+               <h:column rendered="#{authBean.medico || authBean.admin}">
                   <div class="panel panel-info" style="margin: 5px">
                     <div class="panel-heading">
                       <h3 class="panel-title"><span class="glyphicon glyphicon-earphone"></span> Citas:</h3>
@@ -62,7 +62,7 @@
                     </div>  
                    </div>  
                </h:column> 
-               <h:column rendered="#{authBean.medico}">
+               <h:column rendered="#{authBean.medico || authBean.admin}">
                   <div class="panel panel-info" style="margin: 5px">
                     <div class="panel-heading">
                       <h3 class="panel-title"><span class="glyphicon glyphicon-paperclip"></span> Datos clínicos:</h3>
@@ -73,7 +73,7 @@
                     </div>  
                    </div>  
                </h:column> 
-                 <h:column rendered="#{authBean.medico}">
+                 <h:column rendered="#{authBean.medico || authBean.admin}">
                   <div class="panel panel-info" style="margin: 5px">
                     <div class="panel-heading">
                       <h3 class="panel-title"><span class="glyphicon glyphicon-paperclip"></span> Pacientes:</h3>
@@ -83,7 +83,38 @@
                        <a href="pacientes/listarPacientes.jsf">Listar Pacientes</a>
                     </div>  
                    </div>  
-               </h:column> 
+               </h:column>
+                <h:column rendered="#{authBean.paciente}">
+                  <div class="panel panel-info" style="margin: 5px">
+                    <div class="panel-heading">
+                      <h3 class="panel-title"><span class="glyphicon glyphicon-earphone"></span>Datos personales:</h3>
+                    </div>
+                    <div class="panel-body">
+                       <a href="#">Consultar datos personales</a><br/>
+                       <a href="#">Editar datos personales</a>
+                    </div>  
+                   </div>  
+               </h:column>
+               <h:column rendered="#{authBean.paciente}">
+                  <div class="panel panel-info" style="margin: 5px">
+                    <div class="panel-heading">
+                      <h3 class="panel-title"><span class="glyphicon glyphicon-earphone"></span>Citas: </h3>
+                    </div>
+                    <div class="panel-body">
+                       <a href="#">Consultar citas.</a><br/>
+                    </div>  
+                   </div>  
+               </h:column>
+                <h:column rendered="#{authBean.paciente}">
+                  <div class="panel panel-info" style="margin: 5px">
+                    <div class="panel-heading">
+                      <h3 class="panel-title"><span class="glyphicon glyphicon-earphone"></span>Tratamientos: </h3>
+                    </div>
+                    <div class="panel-body">
+                       <a href="#">Consultar historial de tratamientos.</a><br/>
+                    </div>  
+                   </div>  
+               </h:column>
             </h:panelGrid>                      
           </h:form>
         </h:panelGrid>
