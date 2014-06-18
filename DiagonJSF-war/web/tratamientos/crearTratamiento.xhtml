@@ -25,9 +25,9 @@
                    
                     <h:outputLabel value=""/><h:outputLabel value=""/>
                     
-                    <h:outputLabel value="Prescribir a:" for="idUsuario" />
-                    <h:selectOneMenu id="idUsuario" class="form-control" value="#{tratamientoBean.idPaciente}" title="IdUsuario" required="true" requiredMessage="El campo usuario es obligatorio.">
-                        <f:selectItems value="#{tratamientoBean.listaUsuarios}" var="u" itemLabel="#{u.nombre.concat(' ').concat(u.apellidos)}" itemValue="#{u.id}" /> 
+                    <h:outputLabel value="Prescribir a:" for="idPaciente" />
+                    <h:selectOneMenu id="idPaciente" class="form-control" value="#{tratamientoBean.idPaciente}" title="IdPaciente" required="true" requiredMessage="El campo paciente es obligatorio.">
+                        <f:selectItems value="#{tratamientoBean.listaPacientes}" var="u" itemLabel="#{u.nombre.concat(' ').concat(u.apellidos)}" itemValue="#{u.id}" /> 
                     </h:selectOneMenu>
                     
                     <h:outputLabel value=""/><h:outputLabel value=""/>

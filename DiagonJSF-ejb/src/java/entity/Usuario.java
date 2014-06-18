@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Gonzalo
+ * @author Azahar
  */
 @Entity
 @Table(name = "usuario")
@@ -44,8 +44,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findByTelefono", query = "SELECT u FROM Usuario u WHERE u.telefono = :telefono"),
     @NamedQuery(name = "Usuario.findByFechaNacimiento", query = "SELECT u FROM Usuario u WHERE u.fechaNacimiento = :fechaNacimiento")})
 public class Usuario implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
-    private Collection<Roles> rolesCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -88,7 +86,7 @@ public class Usuario implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
     private Collection<Medico> medicoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
-    private Collection<Tratamiento> tratamientoCollection;
+    private Collection<Roles> rolesCollection;
 
     public Usuario() {
     }
@@ -196,12 +194,12 @@ public class Usuario implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Tratamiento> getTratamientoCollection() {
-        return tratamientoCollection;
+    public Collection<Roles> getRolesCollection() {
+        return rolesCollection;
     }
 
-    public void setTratamientoCollection(Collection<Tratamiento> tratamientoCollection) {
-        this.tratamientoCollection = tratamientoCollection;
+    public void setRolesCollection(Collection<Roles> rolesCollection) {
+        this.rolesCollection = rolesCollection;
     }
 
     @Override
@@ -227,15 +225,6 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "entity.Usuario[ id=" + id + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Roles> getRolesCollection() {
-        return rolesCollection;
-    }
-
-    public void setRolesCollection(Collection<Roles> rolesCollection) {
-        this.rolesCollection = rolesCollection;
     }
     
 }

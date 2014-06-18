@@ -60,10 +60,11 @@ public class AuthBean {
                 context.getExternalContext().redirect("/DiagonJSF-war/index.jsf");
             }else{
                 admin = adminFacade.findAdminByUsername(username);
-                if(password.equals(admin.getPassword())){
+             /* CAMBIARRRRRRRRRRRRRRRRR  
+              * if(password.equals(admin.getPassword())){
                     facesContext.getExternalContext().getSessionMap().put("userRol", "admin");
                     facesContext.getExternalContext().getSessionMap().put("userName", username);
-                }
+                }*/
             }
         }
         context.getExternalContext().redirect("/DiagonJSF-war/login.jsf");

@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Gonzalo
+ * @author Azahar
  */
 @Entity
 @Table(name = "tratamiento")
@@ -37,12 +37,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Tratamiento.findByFechaInicio", query = "SELECT t FROM Tratamiento t WHERE t.fechaInicio = :fechaInicio"),
     @NamedQuery(name = "Tratamiento.findByDuracion", query = "SELECT t FROM Tratamiento t WHERE t.duracion = :duracion")})
 public class Tratamiento implements Serializable {
-    @JoinColumn(name = "id_medico", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Medico idMedico;
-    @JoinColumn(name = "id_paciente", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Paciente idPaciente;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,6 +58,12 @@ public class Tratamiento implements Serializable {
     @Size(min = 1, max = 65535)
     @Column(name = "descripcion")
     private String descripcion;
+    @JoinColumn(name = "id_medico", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Medico idMedico;
+    @JoinColumn(name = "id_paciente", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Paciente idPaciente;
 
     public Tratamiento() {
     }
@@ -111,6 +111,22 @@ public class Tratamiento implements Serializable {
         this.descripcion = descripcion;
     }
 
+    public Medico getIdMedico() {
+        return idMedico;
+    }
+
+    public void setIdMedico(Medico idMedico) {
+        this.idMedico = idMedico;
+    }
+
+    public Paciente getIdPaciente() {
+        return idPaciente;
+    }
+
+    public void setIdPaciente(Paciente idPaciente) {
+        this.idPaciente = idPaciente;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -134,22 +150,6 @@ public class Tratamiento implements Serializable {
     @Override
     public String toString() {
         return "entity.Tratamiento[ id=" + id + " ]";
-    }
-
-    public Medico getIdMedico() {
-        return idMedico;
-    }
-
-    public void setIdMedico(Medico idMedico) {
-        this.idMedico = idMedico;
-    }
-
-    public Paciente getIdPaciente() {
-        return idPaciente;
-    }
-
-    public void setIdPaciente(Paciente idPaciente) {
-        this.idPaciente = idPaciente;
     }
     
 }

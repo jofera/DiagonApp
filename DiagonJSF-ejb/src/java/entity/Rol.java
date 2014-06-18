@@ -1,4 +1,4 @@
-    /*
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Gonzalo
+ * @author Azahar
  */
 @Entity
 @Table(name = "rol")
@@ -34,8 +34,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Rol.findById", query = "SELECT r FROM Rol r WHERE r.id = :id"),
     @NamedQuery(name = "Rol.findByNombre", query = "SELECT r FROM Rol r WHERE r.nombre = :nombre")})
 public class Rol implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRol")
-    private Collection<Roles> rolesCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,6 +45,8 @@ public class Rol implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "nombre")
     private String nombre;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRol")
+    private Collection<Roles> rolesCollection;
 
     public Rol() {
     }
@@ -76,6 +76,15 @@ public class Rol implements Serializable {
         this.nombre = nombre;
     }
 
+    @XmlTransient
+    public Collection<Roles> getRolesCollection() {
+        return rolesCollection;
+    }
+
+    public void setRolesCollection(Collection<Roles> rolesCollection) {
+        this.rolesCollection = rolesCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -99,15 +108,6 @@ public class Rol implements Serializable {
     @Override
     public String toString() {
         return "entity.Rol[ id=" + id + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Roles> getRolesCollection() {
-        return rolesCollection;
-    }
-
-    public void setRolesCollection(Collection<Roles> rolesCollection) {
-        this.rolesCollection = rolesCollection;
     }
     
 }

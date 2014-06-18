@@ -1,10 +1,10 @@
 package tratamientos;
 import dao.MedicoFacade;
+import dao.PacienteFacade;
 import dao.TratamientoFacade;
-import dao.UsuarioFacade;
 import entity.Medico;
+import entity.Paciente;
 import entity.Tratamiento;
-import entity.Usuario;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -20,7 +20,7 @@ import javax.inject.Named;
 @RequestScoped
 public class tratamientoBean {
     @EJB
-    private UsuarioFacade usuarioFacade;
+    private PacienteFacade pacienteFacade;
     @EJB
     private MedicoFacade medicoFacade;   
     @EJB
@@ -32,13 +32,13 @@ public class tratamientoBean {
     private int tamLista;
        
     private Medico medico;
-    private Usuario paciente;
+    private Paciente paciente;
     
     //Creacion de los tratamientos
     private Tratamiento tratamientoActual;
     private Tratamiento tratamientoNuevo;
     private List<Tratamiento> listaTratamientos; 
-    private List<Usuario> listaUsuarios;
+    private List<Paciente> listaPacientes;
     private List<Medico> listaMedicos;
       
     public tratamientoBean() {        
@@ -49,7 +49,7 @@ public class tratamientoBean {
      public void Init(){
          listaTratamientos = tratamientoFacade.findAll();
          listaMedicos = medicoFacade.findAll();
-         listaUsuarios = usuarioFacade.findAll();
+         listaPacientes = pacienteFacade.findAll();
          tratamientoNuevo = new Tratamiento();
          tratamientoActual = new Tratamiento();
          tamLista = listaTratamientos.size();
@@ -80,12 +80,20 @@ public class tratamientoBean {
         this.medico = medico;
     }
 
-    public Usuario getPaciente() {
+    public Paciente getPaciente() {
         return paciente;
     }
 
-    public void setPaciente(Usuario paciente) {
+    public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
+    }
+
+    public List<Paciente> getListaPacientes() {
+        return listaPacientes;
+    }
+
+    public void setListaPacientes(List<Paciente> listaPacientes) {
+        this.listaPacientes = listaPacientes;
     }
 
     //Getter and setter para los campos del formulario
@@ -114,14 +122,6 @@ public class tratamientoBean {
         listaTratamientos = lista;
     }
     
-    public List<Usuario> getListaUsuarios() {
-        return listaUsuarios;
-    }
-
-    public void setListaUsuarios(List<Usuario> lista) {
-        this.listaUsuarios = lista;
-    }
-
     public List<Medico> getListaMedicos() {
         return listaMedicos;
     }
@@ -141,7 +141,7 @@ public class tratamientoBean {
     public String crearTratamiento() {
         //Con los ids recogidos del formulario buscamos el medico y el usuario correspondiente.        
         medico = medicoFacade.find(idMedico);
-        paciente = usuarioFacade.find(idPaciente);
+        paciente = pacienteFacade.find(idPaciente);
         
         //Asignamos todos los valores al tratamiento nuevo
         tratamientoNuevo.setIdMedico(medico);
@@ -160,7 +160,7 @@ public class tratamientoBean {
         
         //Con los ids recogidos del formulario buscamos el medico y el usuario correspondiente.        
         medico = medicoFacade.find(idMedico);
-        paciente = usuarioFacade.find(idPaciente);
+        paciente = pacienteFacade.find(idPaciente);
         
         //Asignamos todos los valores al tratamiento nuevo  
         tratamientoActual.setIdMedico(medico);

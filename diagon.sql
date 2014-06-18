@@ -1,9 +1,9 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.1.12
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-06-2014 a las 14:01:08
+-- Tiempo de generación: 18-06-2014 a las 18:21:11
 -- Versión del servidor: 5.5.36
 -- Versión de PHP: 5.4.27
 
@@ -28,8 +28,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `admin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` tinytext NOT NULL,
-  `password` tinytext NOT NULL,
+  `usuario` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
@@ -37,8 +36,8 @@ CREATE TABLE IF NOT EXISTS `admin` (
 -- Volcado de datos para la tabla `admin`
 --
 
-INSERT INTO `admin` (`id`, `username`, `password`) VALUES
-(1, 'admin', 'admin');
+INSERT INTO `admin` (`id`, `usuario`) VALUES
+(1, 12);
 
 -- --------------------------------------------------------
 
@@ -166,22 +165,14 @@ CREATE TABLE IF NOT EXISTS `roles` (
 CREATE TABLE IF NOT EXISTS `tratamiento` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_medico` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
+  `id_paciente` int(11) NOT NULL,
   `fecha_inicio` date NOT NULL,
   `duracion` int(5) NOT NULL,
   `descripcion` text COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_medico` (`id_medico`,`id_usuario`),
-  KEY `id_usuario` (`id_usuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=9 ;
-
---
--- Volcado de datos para la tabla `tratamiento`
---
-
-INSERT INTO `tratamiento` (`id`, `id_medico`, `id_usuario`, `fecha_inicio`, `duracion`, `descripcion`) VALUES
-(7, 6, 9, '2014-06-12', 3, '324234'),
-(8, 6, 9, '9876-02-02', 3, 'ddsdds');
+  KEY `id_medico` (`id_medico`,`id_paciente`),
+  KEY `id_usuario` (`id_paciente`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -199,7 +190,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `telefono` varchar(20) COLLATE latin1_spanish_ci DEFAULT NULL,
   `fecha_nacimiento` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci AUTO_INCREMENT=13 ;
 
 --
 -- Volcado de datos para la tabla `usuario`
@@ -209,7 +200,8 @@ INSERT INTO `usuario` (`id`, `dni`, `password`, `nombre`, `apellidos`, `direccio
 (8, '44332233F', '1234', 'Marta', 'Lopez', 'C/Tupu', '675432345', '2000-06-02'),
 (9, '44556677K', '1234', 'Pepe', 'Ruiz', 'c/DiputaProject', '657543456', '1990-06-02'),
 (10, '1', '1', 'José', 'Moles García', 'C/ De prueba, 3', '951888888', '2014-06-10'),
-(11, '2', '2', 'Francisco', 'García Fernández', 'C/ Dirección de prueba, 8', '951888888', '2014-06-01');
+(11, '2', '2', 'Francisco', 'García Fernández', 'C/ Dirección de prueba, 8', '951888888', '2014-06-01'),
+(12, 'admin', 'admin', 'admin', 'admin', NULL, NULL, NULL);
 
 --
 -- Restricciones para tablas volcadas
@@ -255,11 +247,10 @@ ALTER TABLE `roles`
 -- Filtros para la tabla `tratamiento`
 --
 ALTER TABLE `tratamiento`
+  ADD CONSTRAINT `tratamiento_ibfk_2` FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id`),
   ADD CONSTRAINT `FK_tratamiento_ibfj` FOREIGN KEY (`id_medico`) REFERENCES `medico` (`id`),
   ADD CONSTRAINT `FK_tratamiento_id_medico` FOREIGN KEY (`id_medico`) REFERENCES `medico` (`id`),
-  ADD CONSTRAINT `FK_tratamiento_id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`),
-  ADD CONSTRAINT `tratamiento_ibfk_1` FOREIGN KEY (`id_medico`) REFERENCES `medico` (`id`),
-  ADD CONSTRAINT `tratamiento_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
+  ADD CONSTRAINT `tratamiento_ibfk_1` FOREIGN KEY (`id_medico`) REFERENCES `medico` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Gonzalo
+ * @author Azahar
  */
 @Stateless
 public class AdminFacade extends AbstractFacade<Admin> {
@@ -27,9 +27,9 @@ public class AdminFacade extends AbstractFacade<Admin> {
     public AdminFacade() {
         super(Admin.class);
     }
-    
     public Admin findAdminByUsername(String username){
-        List<Admin> listaAdmin = em.createNamedQuery("Admin.findByUsername").setParameter("username", username).getResultList();
-        return listaAdmin.isEmpty()?null: listaAdmin.get(0);
-    }
+       List<Admin> listaAdmin = em.createNamedQuery("Admin.findByUsername").setParameter("username", username).getResultList();
+       return listaAdmin.isEmpty()?null: listaAdmin.get(0);
+   }
+    
 }

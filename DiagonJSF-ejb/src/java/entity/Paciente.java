@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Gonzalo
+ * @author Azahar
  */
 @Entity
 @Table(name = "paciente")
@@ -37,8 +37,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Paciente.findByNuss", query = "SELECT p FROM Paciente p WHERE p.nuss = :nuss"),
     @NamedQuery(name = "Paciente.findByActivo", query = "SELECT p FROM Paciente p WHERE p.activo = :activo")})
 public class Paciente implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPaciente")
-    private Collection<Tratamiento> tratamientoCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,6 +57,8 @@ public class Paciente implements Serializable {
     @JoinColumn(name = "id_medico", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Medico idMedico;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPaciente")
+    private Collection<Tratamiento> tratamientoCollection;
 
     public Paciente() {
     }
@@ -113,6 +113,15 @@ public class Paciente implements Serializable {
         this.idMedico = idMedico;
     }
 
+    @XmlTransient
+    public Collection<Tratamiento> getTratamientoCollection() {
+        return tratamientoCollection;
+    }
+
+    public void setTratamientoCollection(Collection<Tratamiento> tratamientoCollection) {
+        this.tratamientoCollection = tratamientoCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -136,15 +145,6 @@ public class Paciente implements Serializable {
     @Override
     public String toString() {
         return "entity.Paciente[ id=" + id + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Tratamiento> getTratamientoCollection() {
-        return tratamientoCollection;
-    }
-
-    public void setTratamientoCollection(Collection<Tratamiento> tratamientoCollection) {
-        this.tratamientoCollection = tratamientoCollection;
     }
     
 }

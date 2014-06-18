@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Gonzalo
+ * @author Azahar
  */
 @Stateless
 public class UsuarioFacade extends AbstractFacade<Usuario> {
@@ -27,10 +27,9 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     public UsuarioFacade() {
         super(Usuario.class);
     }
-    
     public Usuario findUsuarioByDNI(String dni){
-        List<Usuario> listaUsuarios = em.createNamedQuery("Usuario.findByDni").setParameter("dni", dni).getResultList();
-        return listaUsuarios.isEmpty()?null: listaUsuarios.get(0);
-    }
+       List<Usuario> listaUsuarios = em.createNamedQuery("Usuario.findByDni").setParameter("dni", dni).getResultList();
+       return listaUsuarios.isEmpty()?null: listaUsuarios.get(0);
+   }
     
 }

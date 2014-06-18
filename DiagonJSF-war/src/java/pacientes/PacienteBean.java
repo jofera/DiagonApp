@@ -155,8 +155,15 @@ public class PacienteBean {
     }
     
     public String editarPaciente(int id){ 
-        pacienteFacade.edit(pacienteActual); 
+        medico = medicoFacade.find(idMedico);
+        paciente = usuarioFacade.find(idUsuario);
+        
+        pacienteNuevo.setIdMedico(medico);
+        pacienteNuevo.setIdUsuario(paciente);
+        
+        pacienteFacade.edit(pacienteNuevo);
         listaPacientes = pacienteFacade.findAll();
+        
         return "listarPacientes.jsf";
     }
     
