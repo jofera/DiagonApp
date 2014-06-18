@@ -4,9 +4,11 @@
  */
 package auth;
 
+import dao.AdminFacade;
 import dao.MedicoFacade;
 import entity.Usuario;
 import dao.UsuarioFacade;
+import entity.Admin;
 import java.io.IOException;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -23,9 +25,12 @@ import javax.servlet.http.HttpServletRequest;
 @RequestScoped
 public class AuthBean {
     @EJB
+    private AdminFacade adminFacade;
+    @EJB
     private MedicoFacade medicoFacade;
     @EJB
     private UsuarioFacade usuarioFacade;
+    
     private String username, password;
     FacesContext facesContext = FacesContext.getCurrentInstance();
 
@@ -40,6 +45,7 @@ public class AuthBean {
         FacesContext context=FacesContext.getCurrentInstance();
         String relativePath = context.getExternalContext().getRequestContextPath();
         Usuario user;
+        Admin admin;
         String goTo;
         if(!username.isEmpty() && !password.isEmpty()){
             user = usuarioFacade.findUsuarioByDNI(username);
@@ -52,6 +58,12 @@ public class AuthBean {
                 }
                 facesContext.getExternalContext().getSessionMap().put("userName", username);
                 context.getExternalContext().redirect("/DiagonJSF-war/index.jsf");
+            }else{
+                admin = adminFacade.findAdminByUsername(username);
+                if(password.equals(admin.getPassword())){
+                    facesContext.getExternalContext().getSessionMap().put("userRol", "admin");
+                    facesContext.getExternalContext().getSessionMap().put("userName", username);
+                }
             }
         }
         context.getExternalContext().redirect("/DiagonJSF-war/login.jsf");
@@ -71,15 +83,6 @@ public class AuthBean {
         String userName = (String) httpServletRequest.getSession().getAttribute("userName");
         Usuario user = usuarioFacade.findUsuarioByDNI(userName);
         return user;
-    }
-    
-    /*** Devuelve nombre y apellidos del usuario logeado ***/
-    public String getLogedUserName(){
-        String fullname = "";
-        Usuario user = this.getLogedUser();
-        if(user != null)
-            fullname = user.getNombre().concat(" ").concat(user.getApellidos());
-        return fullname;
     }
     
     /*** Devuelve el rol del usuario conectado al sistema ***/
