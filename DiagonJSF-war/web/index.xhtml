@@ -85,14 +85,14 @@
                    </div>  
                </h:column>
                 <h:column rendered="#{authBean.paciente}">
-                    <ui:param name="idPaciente" value="#{authBean.logedUserId}" />
+                    <ui:param name="idUsuario" value="#{authBean.logedUserId}" />
                   <div class="panel panel-info" style="margin: 5px">
                     <div class="panel-heading">
                       <h3 class="panel-title"><span class="glyphicon glyphicon-earphone"></span>Datos personales:</h3>
                     </div>
                     <div class="panel-body">
                        <a href="#">Consultar datos personales</a><br/>
-                       <h:commandLink value="Editar datos personales" action="#{usuarioBean.modificarMisDatos(idPaciente)}" />
+                       <h:commandLink value="Editar datos personales" action="#{usuarioBean.modificarMisDatos(idUsuario)}" />
                     </div>  
                    </div>  
                </h:column>
@@ -102,8 +102,8 @@
                       <h3 class="panel-title"><span class="glyphicon glyphicon-earphone"></span>Citas: </h3>
                     </div>
                     <div class="panel-body">
-                        <a href="#">Solicitar cita</a><br/>
-                        <a href="#">Consultar citas</a><br/>
+                        <h:commandLink value="Solicitar cita" action="#{citasBean.pedirCita(idUsuario)}" /><br/>                        
+                        <h:commandLink value="Consultar citas" action="#" />
                     </div>  
                    </div>  
                </h:column>

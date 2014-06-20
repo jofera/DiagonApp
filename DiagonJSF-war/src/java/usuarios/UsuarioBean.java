@@ -183,7 +183,7 @@ public class UsuarioBean{
        return "listarUsuarios.jsf";
    }
    
-   public String botonModificarUsuario(int id){
+   public String botonModificarUsuario(int id) throws IOException{
        setEditUsuario(usuarioFacade.find(id));
        return "editarUsuario.jsf";
    }

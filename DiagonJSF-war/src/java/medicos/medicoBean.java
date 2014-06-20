@@ -184,5 +184,4 @@ public class medicoBean implements Serializable {
     public void setEditarMedico(Medico editarMedico) {
         this.editarMedico = editarMedico;
     }    
-    
 }

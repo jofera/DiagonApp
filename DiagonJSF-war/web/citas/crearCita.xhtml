@@ -2,11 +2,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Crear Cita</title>
-        <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />    
-        <link rel="stylesheet" href="../bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <h:outputStylesheet library="css" name="bootstrap-datetimepicker.min.css" />
+        <h:outputScript library="js" name="jquery.min.js" />
+        <h:outputScript library="js" name="moment.min.js" />
+        <h:outputScript library="js" name="bootstrap.min.js" />
+        <h:outputScript library="js" name="bootstrap-datetimepicker.min.js" />
+        <h:outputScript library="js" name="crearCita.js" />
     </h:head>
     <h:body>
         <div class="container">
@@ -15,10 +22,29 @@
                 <div class="row">
                     <h1 style="padding-left: 160px"><h:outputText value="Crear una Cita"/></h1>
                 </div>
+
+                <!-- Si el usuario es un admin, muestro el desplegable de médicos -->
+                <h:panelGroup layout="block" class="form-group" rendered="#{authBean.admin}">
+                    <h:outputLabel class="col-sm-2 control-label" value="IdMedico:" for="idMedico" />
+                    <div class="col-sm-5">
+                        <h:selectOneMenu class="form-control" id="idMedico" value="#{citasBean.medico}" title="IdMedico" required="true" requiredMessage="The IdMedico field is required." >
+                            <f:selectItems value="#{citasBean.listaMedicos}" var="med" itemLabel="#{med.idUsuario.nombre.concat(' ').concat(med.idUsuario.apellidos)}" itemValue="#{med.id}" />
+                        </h:selectOneMenu>
+                    </div>
+                </h:panelGroup>
+                
+                <!-- Si es un paciente, el usuario solicita la cita para su médico de cabecera -->
+                <h:panelGroup layout="block" class="form-group" rendered="#{authBean.paciente}">
+                    <h:outputLabel class="col-sm-2 control-label" value="Medico" for="nombreMedico" />
+                    <h:panelGroup layout="block" class="col-sm-5">
+                        <h:inputText class="form-control" id="nombreMedico" value="#{citasBean.nuevaCita.idMedico.idUsuario.nombre.concat(' ').concat(citasBean.nuevaCita.idMedico.idUsuario.apellidos)}" readonly="true" />
+                    </h:panelGroup>
+                </h:panelGroup>
+                
                 <div class="form-group">
                     <h:outputLabel class="col-sm-2 control-label" value="Consulta:" for="consulta" />
                     <div class="col-sm-5">
-                        <h:inputText class="form-control" id="consulta" value="#{citasBean.nuevaCita.consulta}" title="Consulta" required="true" requiredMessage="El campo consulta no es requerido."/>
+                        <h:inputText class="form-control" id="consulta" value="#{citasBean.nuevaCita.consulta}" title="Consulta" required="true" requiredMessage="El campo consulta no es requerido." readonly="#{authBean.paciente}"/>
                     </div>
                 </div>
                 
@@ -52,59 +78,23 @@
                     </div>
                 </div>
                 
-                <div class="form-group">
+                <h:panelGroup layout="block" class="form-group" rendered="#{authBean.admin}">
                     <h:outputLabel class="col-sm-2 control-label" value="Usuario:" for="idUsuario" />
                     <div class="col-sm-5">
                         <h:selectOneMenu class="form-control" id="idUsuario" value="#{citasBean.usuario}" title="IdUsuario" required="true" requiredMessage="The IdUsuario field is required.">
                             <f:selectItems value="#{citasBean.listaUsuarios}" var="user" itemLabel="#{user.nombre.concat(' ').concat(user.apellidos)}" itemValue="#{user.id}" />
                         </h:selectOneMenu>
                     </div>
-                </div>
-                
-                <div class="form-group">
-                    <h:outputLabel class="col-sm-2 control-label" value="IdMedico:" for="idMedico" />
-                    <div class="col-sm-5">
-                        <h:selectOneMenu class="form-control" id="idMedico" value="#{citasBean.medico}" title="IdMedico" required="true" requiredMessage="The IdMedico field is required.">
-                            <f:selectItems value="#{citasBean.listaMedicos}" var="med" itemLabel="#{med.idUsuario.nombre.concat(' ').concat(med.idUsuario.apellidos)}" itemValue="#{med.id}" />
-                        </h:selectOneMenu>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <h:commandButton value="Crear " class="btn btn-success col-sm-offset-2" action="#{citasBean.crearCita()}"/>
-                </div>
-                                        
-                    
-                    
-                    
-                    
-                    
-                
+                </h:panelGroup>
+                <h:panelGroup layout="block" class="form-group" rendered="#{authBean.admin}">
+                    <h:commandButton value="Crear" class="btn btn-success col-sm-offset-2" action="#{citasBean.crearCita()}"/>
+                </h:panelGroup>
+                <h:panelGroup layout="block" class="form-group" rendered="#{authBean.paciente}">
+                    <h:commandButton value="Crear" class="btn btn-success col-sm-offset-2" action="#{citasBean.pedirCitaSubmit()}"/>
+                </h:panelGroup>
             </h:form>
         </f:view>
         </div>
-        <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
-        <script type="text/javascript" src="../bower_components/moment/min/moment.min.js"></script>
-        <script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="../bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-        <script type="text/javascript">
-            $(function () {
-
-                $('#datetimepicker1').datetimepicker({
-                    format:'MM/DD/YYYY',
-                    pickTime:false,
-                    showToday: true,
-                });
-                
-                $('#timepicker').datetimepicker({
-                    format:'HH:mm:ss',
-                    pickDate:false,
-                    pickTime: true,                
-                    useMinutes: true,               
-                    useSeconds: true,
-                });
-            });
-        </script>
     </h:body>
 </html>
 

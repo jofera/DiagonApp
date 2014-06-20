@@ -171,4 +171,8 @@ public class PacienteBean {
         setPacienteActual(pacienteFacade.find(id));
         return "editarPaciente.jsf"; 
     }
+    
+    public Paciente obtenerPacienteFromUsuario(int usuario){
+        return pacienteFacade.findPacienteByUserId(usuario);
+    }
 }

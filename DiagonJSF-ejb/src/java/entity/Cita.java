@@ -67,6 +67,8 @@ public class Cita implements Serializable {
     @JoinColumn(name = "id_medico", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Medico idMedico;
+    
+    public enum EstadoCita {PENDIENTE,DENEGADA,ACEPTADA,CANCELADA};
 
     public Cita() {
     }

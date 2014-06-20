@@ -5,6 +5,7 @@
 package dao;
 
 import entity.Paciente;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,6 +26,12 @@ public class PacienteFacade extends AbstractFacade<Paciente> {
 
     public PacienteFacade() {
         super(Paciente.class);
+    }
+    
+    public Paciente findPacienteByUserId(int usuario){
+       List<Paciente> listaPacientes = em.createNamedQuery("Paciente.findByUsuarioId").setParameter("idUsuario", usuario).getResultList();
+       return listaPacientes.isEmpty()?null: listaPacientes.get(0);
+        
     }
     
 }

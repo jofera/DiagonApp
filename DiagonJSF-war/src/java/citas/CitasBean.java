@@ -6,15 +6,20 @@ package citas;
 
 import dao.CitaFacade;
 import dao.MedicoFacade;
+import dao.PacienteFacade;
 import dao.UsuarioFacade;
 import entity.Cita;
 import entity.Medico;
+import entity.Paciente;
 import entity.Usuario;
+import java.io.IOException;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -23,6 +28,8 @@ import javax.enterprise.context.RequestScoped;
 @Named(value = "citasBean")
 @RequestScoped
 public class CitasBean {
+    @EJB
+    private PacienteFacade pacienteFacade;
     @EJB
     private UsuarioFacade usuarioFacade;
     @EJB
@@ -161,4 +168,23 @@ public class CitasBean {
         listaCitas = citaFacade.findAll();
         return "listarCitas.jsf";
     }
+    
+    public String pedirCita(int usuario){
+        Usuario u = usuarioFacade.findUsuarioById(usuario);
+        Paciente paciente = pacienteFacade.findPacienteByUserId(usuario);
+        Medico medicoAsociado = paciente.getIdMedico();
+        nuevaCita = new Cita();
+        nuevaCita.setEstado(Cita.EstadoCita.PENDIENTE.ordinal());
+        nuevaCita.setIdMedico(medicoAsociado);
+        nuevaCita.setConsulta(medicoAsociado.getConsulta());
+        nuevaCita.setIdUsuario(u);
+        return "/citas/crearCita.jsf";
+    }
+    
+    public String pedirCitaSubmit(){
+        citaFacade.create(nuevaCita);
+        listaCitas = citaFacade.findAll();
+        return "../index.jsf";
+    }
+    
 }
