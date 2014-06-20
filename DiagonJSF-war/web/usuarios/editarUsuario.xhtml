@@ -23,7 +23,7 @@
                 <h:panelGrid columns="2" width="500px">
                     <h:outputLabel value="Dni:" for="dni" />
                     
-                    <h:inputText id="dni" class="form-control" value="#{usuarioBean.editUsuario.dni}" title="Dni" required="true" requiredMessage="El campo DNI es obligatorio"/>
+                    <h:inputText id="dni" class="form-control" value="#{usuarioBean.editUsuario.dni}" readonly="#{authBean.paciente}" title="Dni" required="true" requiredMessage="El campo DNI es obligatorio"/>
                    
                     <h:outputLabel value=""/><h:outputLabel value=""/>
                     

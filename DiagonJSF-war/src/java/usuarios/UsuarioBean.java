@@ -197,8 +197,7 @@ public class UsuarioBean{
     public void modificarMisDatosSubmit(int id) throws IOException{
        usuarioFacade.edit(editUsuario);
        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext(); 
-        context.redirect("../index.jsf");
-       //return "../index.jsf";
+       context.redirect("../index.jsf");
    }
     
     
