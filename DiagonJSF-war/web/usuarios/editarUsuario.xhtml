@@ -56,11 +56,19 @@
                     <h:inputText id="fechaNacimiento" class="form-control" value="#{usuarioBean.editUsuario.fechaNacimiento}" title="FechaNacimiento" >
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                     </h:inputText>
-                    
                     <h:outputLabel value=""/><h:outputLabel value=""/>
-                    
-                    <h:commandButton value="Guardar" class="btn btn-success" action="#{usuarioBean.modificarUsuario(id)}"/>
-                    <a href="listarUsuarios.jsf"  class="btn btn-danger" > <span class="glyphicon glyphicon-remove"></span> Cancelar</a>
+                        <h:outputLink value="listarUsuarios.jsf" class="btn btn-danger" title="Volver al listado anterior" rendered="#{authBean.admin}">
+                            Volver <span class="glyphicon glyphicon-repeat"></span>
+                        </h:outputLink>
+                        <h:outputLink value="index.jsf" class="btn btn-danger" title="Volver al listado anterior" rendered="#{authBean.paciente}">
+                            Volver <span class="glyphicon glyphicon-repeat"></span>
+                        </h:outputLink>
+                        <h:commandLink class="btn btn-success" value="Guardar" action="#{usuarioBean.modificarMisDatosSubmit(id)}" title="Guardar cambios realizados" rendered="#{authBean.paciente}">
+                            <span class="glyphicon glyphicon-floppy-save"></span>
+                        </h:commandLink>
+                        <h:commandLink class="btn btn-success" value="Guardar" action="#{usuarioBean.modificarUsuario(id)}" title="Guardar cambios realizados" rendered="#{authBean.admin}">
+                            <span class="glyphicon glyphicon-floppy-save"></span>
+                        </h:commandLink>
                 </h:panelGrid>
             </h:form>
             </h:panelGrid>

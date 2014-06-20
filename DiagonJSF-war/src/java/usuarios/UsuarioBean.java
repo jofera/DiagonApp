@@ -6,11 +6,14 @@ package usuarios;
 
 import dao.UsuarioFacade;
 import entity.Usuario;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
@@ -183,6 +186,19 @@ public class UsuarioBean{
    public String botonModificarUsuario(int id){
        setEditUsuario(usuarioFacade.find(id));
        return "editarUsuario.jsf";
+   }
+   
+   public String modificarMisDatos(int id){
+       //setEditUsuario(usuarioFacade.find(id));
+       setEditUsuario(usuarioFacade.findUsuarioById(id));
+       return "usuarios/editarUsuario.jsf";
+   }
+   
+    public void modificarMisDatosSubmit(int id) throws IOException{
+       usuarioFacade.edit(editUsuario);
+       ExternalContext context = FacesContext.getCurrentInstance().getExternalContext(); 
+        context.redirect("../index.jsf");
+       //return "../index.jsf";
    }
     
     

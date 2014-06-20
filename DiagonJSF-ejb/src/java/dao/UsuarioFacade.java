@@ -27,9 +27,14 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     public UsuarioFacade() {
         super(Usuario.class);
     }
+    
     public Usuario findUsuarioByDNI(String dni){
        List<Usuario> listaUsuarios = em.createNamedQuery("Usuario.findByDni").setParameter("dni", dni).getResultList();
        return listaUsuarios.isEmpty()?null: listaUsuarios.get(0);
    }
     
+    public Usuario findUsuarioById(int id){
+       List<Usuario> listaUsuarios = em.createNamedQuery("Usuario.findById").setParameter("id", id).getResultList();
+       return listaUsuarios.isEmpty()?null: listaUsuarios.get(0);
+   }
 }

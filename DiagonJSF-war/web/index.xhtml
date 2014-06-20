@@ -85,13 +85,14 @@
                    </div>  
                </h:column>
                 <h:column rendered="#{authBean.paciente}">
+                    <ui:param name="idPaciente" value="#{authBean.logedUserId}" />
                   <div class="panel panel-info" style="margin: 5px">
                     <div class="panel-heading">
                       <h3 class="panel-title"><span class="glyphicon glyphicon-earphone"></span>Datos personales:</h3>
                     </div>
                     <div class="panel-body">
                        <a href="#">Consultar datos personales</a><br/>
-                       <a href="#">Editar datos personales</a>
+                       <h:commandLink value="Editar datos personales" action="#{usuarioBean.modificarMisDatos(idPaciente)}" />
                     </div>  
                    </div>  
                </h:column>

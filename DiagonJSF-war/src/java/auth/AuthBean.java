@@ -80,6 +80,11 @@ public class AuthBean {
         return user;
     }
     
+    /*** Devuelve el ID del usuario logeado ***/
+    public int getLogedUserId(){
+        return getLogedUser().getId();
+    }
+    
     /*** Devuelve nombre y apellidos del usuario logeado ***/
     public String getLogedUserName(){
         String fullname = "";
