@@ -6,7 +6,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Editar Médico</title>
-        <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
         <f:metadata>
             <f:event listener="#{authBean.checkUserSession()}" type="preRenderView" />
         </f:metadata>
