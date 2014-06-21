@@ -97,6 +97,7 @@
                    </div>  
                </h:column>
                <h:column rendered="#{authBean.paciente}">
+                   <ui:param name="idUsuario" value="#{authBean.logedUserId}" />
                   <div class="panel panel-info" style="margin: 5px">
                     <div class="panel-heading">
                       <h3 class="panel-title"><span class="glyphicon glyphicon-earphone"></span>Citas: </h3>

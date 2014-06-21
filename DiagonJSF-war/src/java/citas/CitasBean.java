@@ -173,18 +173,26 @@ public class CitasBean {
         Usuario u = usuarioFacade.findUsuarioById(usuario);
         Paciente paciente = pacienteFacade.findPacienteByUserId(usuario);
         Medico medicoAsociado = paciente.getIdMedico();
-        nuevaCita = new Cita();
-        nuevaCita.setEstado(Cita.EstadoCita.PENDIENTE.ordinal());
+        //nuevaCita = new Cita();
+        //nuevaCita.setEstado(Cita.EstadoCita.PENDIENTE.ordinal());
         nuevaCita.setIdMedico(medicoAsociado);
         nuevaCita.setConsulta(medicoAsociado.getConsulta());
         nuevaCita.setIdUsuario(u);
         return "/citas/crearCita.jsf";
     }
     
-    public String pedirCitaSubmit(){
+    public String pedirCitaSubmit(int usuario){
+        Usuario u = usuarioFacade.findUsuarioById(usuario);
+        Paciente paciente = pacienteFacade.findPacienteByUserId(usuario);
+        Medico medicoAsociado = paciente.getIdMedico();
+        //nuevaCita = new Cita();
+        //nuevaCita.setEstado(Cita.EstadoCita.PENDIENTE.ordinal());
+        nuevaCita.setIdMedico(medicoAsociado);
+        nuevaCita.setConsulta(medicoAsociado.getConsulta());
+        nuevaCita.setIdUsuario(u);
         citaFacade.create(nuevaCita);
         listaCitas = citaFacade.findAll();
-        return "../index.jsf";
+        return "/index.jsf";
     }
     
     public String consultarMisCitas(int usuario){

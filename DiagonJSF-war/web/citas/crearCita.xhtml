@@ -41,12 +41,12 @@
                     </h:panelGroup>
                 </h:panelGroup>
                 
-                <div class="form-group">
+                <h:panelGroup layout="block" class="form-group">
                     <h:outputLabel class="col-sm-2 control-label" value="Consulta:" for="consulta" />
                     <div class="col-sm-5">
                         <h:inputText class="form-control" id="consulta" value="#{citasBean.nuevaCita.consulta}" title="Consulta" required="true" requiredMessage="El campo consulta no es requerido." readonly="#{authBean.paciente}"/>
                     </div>
-                </div>
+                </h:panelGroup>
                 
                 <div class="form-group">
                     <h:outputLabel class="col-sm-2 control-label" value="Fecha:" for="fecha" />
@@ -90,7 +90,8 @@
                     <h:commandButton value="Crear" class="btn btn-success col-sm-offset-2" action="#{citasBean.crearCita()}"/>
                 </h:panelGroup>
                 <h:panelGroup layout="block" class="form-group" rendered="#{authBean.paciente}">
-                    <h:commandButton value="Crear" class="btn btn-success col-sm-offset-2" action="#{citasBean.pedirCitaSubmit()}"/>
+                    <ui:param name="idUsuario" value="#{authBean.logedUserId}" />
+                    <h:commandButton value="Crear" class="btn btn-success col-sm-offset-2" action="#{citasBean.pedirCitaSubmit(idUsuario)}"/>
                 </h:panelGroup>
             </h:form>
         </f:view>

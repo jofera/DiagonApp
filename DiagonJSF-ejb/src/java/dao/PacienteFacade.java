@@ -30,7 +30,7 @@ public class PacienteFacade extends AbstractFacade<Paciente> {
     
     public Paciente findPacienteByUserId(int usuario){
        List<Paciente> listaPacientes = em.createNamedQuery("Paciente.findByUsuarioId").setParameter("idUsuario", usuario).getResultList();
-       return listaPacientes.isEmpty()?null: listaPacientes.get(0);
+       return listaPacientes.isEmpty() ? null: listaPacientes.get(0);
         
     }
     
