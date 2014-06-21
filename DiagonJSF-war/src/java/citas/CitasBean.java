@@ -9,6 +9,7 @@ import dao.MedicoFacade;
 import dao.PacienteFacade;
 import dao.UsuarioFacade;
 import entity.Cita;
+import entity.Cita.EstadoCita;
 import entity.Medico;
 import entity.Paciente;
 import entity.Usuario;
@@ -45,6 +46,16 @@ public class CitasBean {
     
     private int medico,usuario;
     
+    private EstadoCita[] listaEstados;
+
+    public EstadoCita[] getListaEstados() {
+        return listaEstados;
+    }
+
+    public void setListaEstados(EstadoCita[] listaEstados) {
+        this.listaEstados = listaEstados;
+    }
+    
     /**
      * Creates a new instance of CitasBean
      */
@@ -58,6 +69,7 @@ public class CitasBean {
         listaMedicos = medicoFacade.findAll();
         listaUsuarios = usuarioFacade.findAll();
         listaCitas = citaFacade.findAll();
+        listaEstados = EstadoCita.values();
     }
 
     public Cita getNuevaCita() {
@@ -200,8 +212,22 @@ public class CitasBean {
         return "/citas/listarCitas.jsf";
     }
     
+    public String[] obtenerEstados(){
+        String[] estadoString = new String[EstadoCita.values().length];
+        EstadoCita[] estados = EstadoCita.values();
+        for(EstadoCita estado : estados){
+            estadoString[estadoString.length] = estado.toString();
+        }
+        return estadoString;
+    }
+    
     public String estadoToString(int estado){
         return Cita.EstadoCita.values()[estado].toString();
     }
+    
+    public int estadoToInt(EstadoCita estado){
+        return estado.ordinal();
+    }
+    
     
 }

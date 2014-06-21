@@ -79,6 +79,15 @@
                 </div>
                 
                 <h:panelGroup layout="block" class="form-group" rendered="#{authBean.admin}">
+                    <h:outputLabel class="col-sm-2 control-label" value="Estado de la cita:" for="estadoCita" />
+                    <div class="col-sm-5">
+                        <h:selectOneMenu class="form-control" id="estadoCita" value="#{citasBean.nuevaCita.estado}" title="IdUsuario" required="true" requiredMessage="The IdUsuario field is required.">
+                            <f:selectItems value="#{citasBean.listaEstados}" var="estado" itemLabel="#{estado}" itemValue="#{citasBean.estadoToInt(estado)}" />
+                        </h:selectOneMenu>
+                    </div>
+                </h:panelGroup>
+                
+                <h:panelGroup layout="block" class="form-group" rendered="#{authBean.admin}">
                     <h:outputLabel class="col-sm-2 control-label" value="Usuario:" for="idUsuario" />
                     <div class="col-sm-5">
                         <h:selectOneMenu class="form-control" id="idUsuario" value="#{citasBean.usuario}" title="IdUsuario" required="true" requiredMessage="The IdUsuario field is required.">
