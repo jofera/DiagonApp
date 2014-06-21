@@ -57,11 +57,11 @@
                         </f:facet>
                         <h:outputText value="#{item.descripcion}"/>
                     </h:column>
-                    <h:column>
+                     <h:column rendered="#{authBean.admin}">
                         <f:facet name="header">
                             <h:outputText value="Acción"/>
                         </f:facet>                        
-                         <h:panelGroup layout="block">
+                        <h:panelGroup layout="block">
                             <h:panelGroup layout="block" style="float:left;margin-right:5px;">
                                 <h:commandLink value="Editar" action="#{tratamientoBean.goToEditarTratamiento(item.id)}" class="btn btn-info" title="Editar Tratamiento">
                                     <span class="glyphicon glyphicon-pencil"></span>
@@ -75,8 +75,10 @@
                         </h:panelGroup>
                     </h:column>
                 </h:dataTable>               
-            </h:form>
-             <a href="../index.jsf" class="btn btn-info" > <span class="glyphicon glyphicon-home"></span>  Inicio</a>
+                 <h:link class="btn btn-info" value="Inicio" outcome="/index" title="Volver al inicio">
+                     <span class="glyphicon glyphicon-home"></span>
+                 </h:link>
+             </h:form>
         </f:view>
         </h:panelGrid>
     </h:body>
