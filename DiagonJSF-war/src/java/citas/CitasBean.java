@@ -187,4 +187,9 @@ public class CitasBean {
         return "../index.jsf";
     }
     
+    public String consultarMisCitas(int usuario){
+        listaCitas = citaFacade.obtenerCitasUsuario(usuario);
+        return "/citas/listarCitas.jsf";
+    }
+    
 }

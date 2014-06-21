@@ -41,7 +41,7 @@
                             <f:convertDateTime pattern="HH:mm:ss" />
                         </h:outputText>
                     </h:column>
-                    <h:column>
+                    <h:column rendered="#{authBean.admin}">
                         <f:facet name="header">
                             <h:outputText value="Usuario"/>
                         </f:facet>
@@ -53,7 +53,7 @@
                         </f:facet>
                         <h:outputText value="#{item.idMedico.idUsuario.nombre.concat(' ').concat(item.idMedico.idUsuario.apellidos)}"/>
                     </h:column>
-                    <h:column>
+                    <h:column rendered="#{authBean.admin}">
                        <f:facet name="header">
                             <h:outputText value="Acción"/>
                         </f:facet>
@@ -70,8 +70,10 @@
                             </h:panelGroup>
                         </h:panelGroup>
                     </h:column>
-                </h:dataTable>
-                <a href="../index.jsf" class="btn btn-info" > <span class="glyphicon glyphicon-home"></span>  Inicio</a>
+                </h:dataTable>               
+                 <h:link class="btn btn-info" value="Inicio" outcome="/index" title="Volver al inicio">
+                     <span class="glyphicon glyphicon-home"></span>
+                 </h:link>
             </h:form>
          </div>
         </f:view>

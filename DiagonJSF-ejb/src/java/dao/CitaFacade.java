@@ -5,6 +5,7 @@
 package dao;
 
 import entity.Cita;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,6 +26,11 @@ public class CitaFacade extends AbstractFacade<Cita> {
 
     public CitaFacade() {
         super(Cita.class);
+    }
+    
+    public List<Cita> obtenerCitasUsuario(int usuario){
+       List<Cita> listaCitas = em.createNamedQuery("Cita.findByUsuario").setParameter("idUsuario", usuario).getResultList();
+       return listaCitas.isEmpty() ? null: listaCitas;
     }
     
 }
