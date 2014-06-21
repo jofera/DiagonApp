@@ -200,4 +200,8 @@ public class CitasBean {
         return "/citas/listarCitas.jsf";
     }
     
+    public String estadoToString(int estado){
+        return Cita.EstadoCita.values()[estado].toString();
+    }
+    
 }

@@ -53,6 +53,12 @@
                         </f:facet>
                         <h:outputText value="#{item.idMedico.idUsuario.nombre.concat(' ').concat(item.idMedico.idUsuario.apellidos)}"/>
                     </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Estado"/>
+                        </f:facet>
+                        <h:outputText value="#{citasBean.estadoToString(item.estado)}"/>
+                    </h:column>
                     <h:column rendered="#{authBean.admin}">
                        <f:facet name="header">
                             <h:outputText value="Acción"/>
