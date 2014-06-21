@@ -229,5 +229,11 @@ public class CitasBean {
         return estado.ordinal();
     }
     
+    public void cancelarCita(int cita){
+        editarCita = citaFacade.find(cita);
+        editarCita.setEstado(EstadoCita.CANCELADA.ordinal());
+        citaFacade.edit(editarCita);
+        listaCitas = citaFacade.obtenerCitasUsuario(usuario);
+    }
     
 }

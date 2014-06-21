@@ -59,6 +59,16 @@
                         </f:facet>
                         <h:outputText value="#{citasBean.estadoToString(item.estado)}"/>
                     </h:column>
+                    <h:column rendered="#{authBean.paciente}">
+                        <f:facet name="header">
+                            <h:outputText value="Cancelar"/>
+                        </f:facet>
+                        <h:panelGroup layout="block" rendered="#{citasBean.estadoToString(item.estado) eq 'ACEPTADA' or citasBean.estadoToString(item.estado) eq 'PENDIENTE'}">
+                            <h:commandLink class="btn btn-danger" value="Cancelar cita" action="#{citasBean.cancelarCita(item.id)}" title="Cancelar cita" onclick="if (!confirm('¿Seguro que quieres cancelar la Cita?')) return false;">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </h:commandLink>
+                        </h:panelGroup>
+                    </h:column>
                     <h:column rendered="#{authBean.admin}">
                        <f:facet name="header">
                             <h:outputText value="Acción"/>
