@@ -27,9 +27,9 @@ public class MedicoFacade extends AbstractFacade<Medico> {
     public MedicoFacade() {
         super(Medico.class);
     }
+    
     public Medico findUsuarioByDNI(int usuario){
        List<Medico> listaMedicos = em.createNamedQuery("Medico.findByUsuarioId").setParameter("idUsuario", usuario).getResultList();
        return listaMedicos.isEmpty()?null: listaMedicos.get(0);
-   }
-    
+   } 
 }

@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Tratamiento.findAll", query = "SELECT t FROM Tratamiento t"),
     @NamedQuery(name = "Tratamiento.findById", query = "SELECT t FROM Tratamiento t WHERE t.id = :id"),
     @NamedQuery(name = "Tratamiento.findByFechaInicio", query = "SELECT t FROM Tratamiento t WHERE t.fechaInicio = :fechaInicio"),
+    @NamedQuery(name = "Tratamiento.findByPaciente", query = "SELECT t FROM Tratamiento t WHERE t.idPaciente.id = :idPaciente"),
     @NamedQuery(name = "Tratamiento.findByDuracion", query = "SELECT t FROM Tratamiento t WHERE t.duracion = :duracion")})
 public class Tratamiento implements Serializable {
     private static final long serialVersionUID = 1L;

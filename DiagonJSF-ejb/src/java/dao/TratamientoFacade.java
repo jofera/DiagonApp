@@ -5,6 +5,7 @@
 package dao;
 
 import entity.Tratamiento;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,4 +28,9 @@ public class TratamientoFacade extends AbstractFacade<Tratamiento> {
         super(Tratamiento.class);
     }
     
+    /* Devuelve una lista de tratamientos a partir de un PACIENTE */
+    public List<Tratamiento> findTratamientosByPaciente(int paciente){
+       List<Tratamiento> listaTratamientos = em.createNamedQuery("Tratamiento.findByPaciente").setParameter("idPaciente", paciente).getResultList();
+       return listaTratamientos.isEmpty() ? null : listaTratamientos;
+   }
 }

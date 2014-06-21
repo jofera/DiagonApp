@@ -2,9 +2,11 @@ package tratamientos;
 import dao.MedicoFacade;
 import dao.PacienteFacade;
 import dao.TratamientoFacade;
+import dao.UsuarioFacade;
 import entity.Medico;
 import entity.Paciente;
 import entity.Tratamiento;
+import entity.Usuario;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -20,11 +22,14 @@ import javax.inject.Named;
 @RequestScoped
 public class tratamientoBean {
     @EJB
+    private UsuarioFacade usuarioFacade;
+    @EJB
     private PacienteFacade pacienteFacade;
     @EJB
     private MedicoFacade medicoFacade;   
     @EJB
     private TratamientoFacade tratamientoFacade;
+    
     
     //Recoger del form los valores
     private int idMedico;
@@ -193,6 +198,12 @@ public class tratamientoBean {
         tamLista = listaTratamientos.size();
     }  
     
+    /* Carga lista de tratamientos del usuario y lleva a la pagina */
+    public String goToMisTratamientos(int user){
+        Paciente p = pacienteFacade.findPacienteByUserId(user);
+        listaTratamientos = tratamientoFacade.findTratamientosByPaciente(p.getId());
+        return "tratamientos/listarTratamientos.jsf";
+    }
 }
 
 
