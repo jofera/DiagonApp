@@ -43,6 +43,7 @@ public class CitasBean {
     private List<Medico> listaMedicos;
     private List<Usuario> listaUsuarios;
     private List<Cita> listaCitas;
+    private Usuario u;
     
     private int medico,usuario;
     
@@ -208,6 +209,7 @@ public class CitasBean {
     }
     
     public String consultarMisCitas(int usuario){
+        u = usuarioFacade.findUsuarioById(usuario);
         listaCitas = citaFacade.obtenerCitasUsuario(usuario);
         return "/citas/listarCitas.jsf";
     }
@@ -229,11 +231,28 @@ public class CitasBean {
         return estado.ordinal();
     }
     
+    /* Método para que los pacientes puedan cancelar sus citas */
     public void cancelarCita(int cita){
         editarCita = citaFacade.find(cita);
         editarCita.setEstado(EstadoCita.CANCELADA.ordinal());
         citaFacade.edit(editarCita);
-        listaCitas = citaFacade.obtenerCitasUsuario(usuario);
+        listaCitas = citaFacade.findAll();
+   }
+    
+    /* Método para que los medicos puedan denegar las citas */
+    public void denegarCita(int cita){
+        editarCita = citaFacade.find(cita);
+        editarCita.setEstado(EstadoCita.DENEGADA.ordinal());
+        citaFacade.edit(editarCita);
+        listaCitas = citaFacade.findAll();
+    }
+    
+    /* Método para que los medicos puedan aceptar las citas */
+    public void aceptarCita(int cita){
+        editarCita = citaFacade.find(cita);
+        editarCita.setEstado(EstadoCita.ACEPTADA.ordinal());
+        citaFacade.edit(editarCita);
+        listaCitas = citaFacade.findAll();
     }
     
 }

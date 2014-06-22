@@ -69,6 +69,19 @@
                             </h:commandLink>
                         </h:panelGroup>
                     </h:column>
+                    <h:column rendered="#{authBean.medico}">
+                        <f:facet name="header">
+                            <h:outputText value="Acciones"/>
+                        </f:facet>
+                        <h:panelGroup layout="block">
+                            <h:commandLink class="btn btn-danger" value="Denegar" action="#{citasBean.denegarCita(item.id)}" title="Denegar cita" rendered="#{citasBean.estadoToString(item.estado) eq 'ACEPTADA' or citasBean.estadoToString(item.estado) eq 'PENDIENTE'}">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </h:commandLink>
+                            <h:commandLink class="btn btn-success" value="Aceptar" action="#{citasBean.aceptarCita(item.id)}" title="Aceptar cita" rendered="#{citasBean.estadoToString(item.estado) eq 'PENDIENTE' or citasBean.estadoToString(item.estado) eq 'DENEGADA'}">
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </h:commandLink>
+                        </h:panelGroup>
+                    </h:column>
                     <h:column rendered="#{authBean.admin}">
                        <f:facet name="header">
                             <h:outputText value="Acción"/>
