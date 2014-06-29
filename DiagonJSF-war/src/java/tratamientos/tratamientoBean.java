@@ -150,7 +150,7 @@ public class tratamientoBean {
         
         //Asignamos todos los valores al tratamiento nuevo
         tratamientoNuevo.setIdMedico(medico);
-        tratamientoNuevo.setIdPaciente(null); //CAMBIARRRRR!!!!!!
+        tratamientoNuevo.setIdPaciente(paciente); 
       
         //creamos el nuevo tratamiento en la BD
         tratamientoFacade.create(tratamientoNuevo);  
@@ -169,7 +169,7 @@ public class tratamientoBean {
         
         //Asignamos todos los valores al tratamiento nuevo  
         tratamientoActual.setIdMedico(medico);
-        tratamientoActual.setIdPaciente(null); //CAMBIAAAARRR
+        tratamientoActual.setIdPaciente(paciente); 
         
         //Editamos el tratamiento en la BD
         tratamientoFacade.edit(tratamientoActual);

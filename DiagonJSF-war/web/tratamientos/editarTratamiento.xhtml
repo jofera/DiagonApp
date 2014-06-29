@@ -28,7 +28,7 @@
                     
                     <h:outputLabel value="Paciente:" for="idPaciente" />
                     <h:selectOneMenu id="idPaciente" class="form-control" value="#{tratamientoBean.idPaciente}" title="IdPaciente" required="true" requiredMessage="El campo paciente es obligatorio.">
-                       <f:selectItems value="#{tratamientoBean.listaPacientes}" var="u" itemLabel="#{u.nombre.concat(' ').concat(u.apellidos)}" itemValue="#{u.id}"/>
+                       <f:selectItems value="#{tratamientoBean.listaPacientes}" var="u" itemLabel="#{u.idUsuario.nombre.concat(' ').concat(u.idUsuario.apellidos)}" itemValue="#{u.id}"/>
                     </h:selectOneMenu>
                     
                     <h:outputLabel value=""/><h:outputLabel value=""/>
