@@ -60,6 +60,12 @@
                             </f:facet>
                             <h:outputText value="#{item.consulta}"/>
                         </h:column>
+                         <h:column>
+                            <f:facet name="header">
+                                <h:inputText class="form-control" pt:placeholder="Activo" disabled="true" />
+                            </f:facet>
+                            <h:outputText value="#{item.activo}"/>
+                        </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="Acción"/>
@@ -83,7 +89,6 @@
             </h:panelGroup>
             <a href="../index.jsf" class="btn btn-info" > <span class="glyphicon glyphicon-home"></span>  Inicio</a>
         </f:view>
-
     </h:body>
 </html>
 

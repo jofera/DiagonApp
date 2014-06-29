@@ -39,6 +39,9 @@
                     <h:outputLabel value="Telefono:" for="telefono" />
                     <h:inputText id="telefono" value="#{medicoBean.editarMedico.telefono}" title="Telefono" required="true" requiredMessage="The Telefono field is required."/>
                     <h:outputLabel value="" /><h:outputLabel value="" />
+                      <h:outputLabel value="Activo:" for="activo" />
+                    <h:selectBooleanCheckbox value="#{medicoBean.editarMedico.activo}"  title="Activo" />                    
+                    <h:outputLabel value=""/><h:outputLabel value=""/>
                     <h:outputLink value="#{medicoBean.goToListadoMedicos()}" class="btn btn-danger" title="Volver al listado anterior">
                         Volver <span class="glyphicon glyphicon-repeat"></span>
                     </h:outputLink>

@@ -42,7 +42,7 @@ public class medicoBean implements Serializable {
     /**** Variables ****/
     private int idUsuario, idEspecialidad;
     private String consulta, telefono;
-
+    private boolean activo = true;
 
     /**
      * Creates a new instance of medicosBean
@@ -63,6 +63,7 @@ public class medicoBean implements Serializable {
     public String crearMedico(){
         nuevoMedico.setIdUsuario(usuarioFacade.find(idUsuario));
         nuevoMedico.setIdEspecialidad(especialidadFacade.find(idEspecialidad));
+        nuevoMedico.setActivo(activo);
         medicoFacade.create(nuevoMedico);
         listaMedicos = medicoFacade.findAll();
         return this.goToListadoMedicos();
@@ -77,8 +78,13 @@ public class medicoBean implements Serializable {
     }
     
     public String borrarMedico(int id){
-        medicoFacade.remove(medicoFacade.find(id));
+        /*
+           borrarMedico = medicoFacade.find(id);        
+           borrarMedico.setActivo(false);
+           medicoFacade.edit(borrarMedico);
+          */
         listaMedicos = medicoFacade.findAll();
+        medicoFacade.remove(medicoFacade.find(id));
         return this.goToListadoMedicos();
     }
     
@@ -91,6 +97,22 @@ public class medicoBean implements Serializable {
     
     public String goToListadoMedicos(){
         return "listarMedicos.jsf";
+    }
+
+    public Medico getBorrarMedico() {
+        return borrarMedico;
+    }
+
+    public void setBorrarMedico(Medico borrarMedico) {
+        this.borrarMedico = borrarMedico;
+    }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
     
     public UsuarioFacade getUsuarioFacade() {
